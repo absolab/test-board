@@ -37,9 +37,10 @@ public class UserService implements UserServiceImpl {
 
     @Override
     public ResponseObject logout(HttpServletRequest req) {
-        
-        sessionService.deleteSessoin(req);
 
-        return null;
+        sessionService.deleteSessoin(req);
+        LoginResponseObject result = new LoginResponseObject(LoginResponseObject.LOGOUT_SUCCESS, null);
+
+        return result;
     }
 }

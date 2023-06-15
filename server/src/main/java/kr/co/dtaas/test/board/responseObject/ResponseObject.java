@@ -13,6 +13,6 @@ public abstract class ResponseObject {
     public static final String FAIL    = "FAIL";
 
     String result;
-    String msg;
+    int msg;
     Object data;
 }
