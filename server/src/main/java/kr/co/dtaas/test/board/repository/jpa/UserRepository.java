@@ -7,5 +7,5 @@ import kr.co.dtaas.test.board.dto.UserDto;
 
 public interface UserRepository extends JpaRepository<UserDto, Long>{
 
-    int countByIdAndPwd(String id, String pwd);
+    UserDto findOneByIdAndPwd(String id, String pwd);
 }

@@ -3,6 +3,7 @@ package kr.co.dtaas.test.board.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import kr.co.dtaas.test.board.dto.UserDto;
 import kr.co.dtaas.test.board.repository.jpa.UserRepository;
 import kr.co.dtaas.test.board.responseObject.LoginResponseObject;
@@ -15,18 +16,30 @@ public class UserService implements UserServiceImpl {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    SessionService sessionService;
+
     @Override
-    public ResponseObject login(UserDto user) {
+    public ResponseObject login(HttpServletRequest req, UserDto user) {
 
         LoginResponseObject result = new LoginResponseObject();
-        int count = userRepository.countByIdAndPwd(user.getId(), user.getPwd());
+        UserDto data = userRepository.findOneByIdAndPwd(user.getId(), user.getPwd());
 
-        if (count == 1) {
-            result.success();
+        if (data != null) {
+            sessionService.setSession(req, user);
+            result.success(data);
         } else {
             result.fail();
         }
 
         return result;
+    }
+
+    @Override
+    public ResponseObject logout(HttpServletRequest req) {
+        
+        sessionService.deleteSessoin(req);
+
+        return null;
     }
 }
