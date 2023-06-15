@@ -22,14 +22,14 @@ public class UserService implements UserServiceImpl {
     @Override
     public ResponseObject login(HttpServletRequest req, UserDto user) {
 
-        LoginResponseObject result = new LoginResponseObject();
+        LoginResponseObject result;
         UserDto data = userRepository.findOneByIdAndPwd(user.getId(), user.getPwd());
 
         if (data != null) {
             sessionService.setSession(req, user);
-            result.success(data);
+            result = new LoginResponseObject(LoginResponseObject.LOGIN_SUCCESS, data);
         } else {
-            result.fail();
+            result = new LoginResponseObject(LoginResponseObject.INVALID_PASSWORD, data);   // 이 부분을 어떻게 하면 깔끔할까
         }
 
         return result;
