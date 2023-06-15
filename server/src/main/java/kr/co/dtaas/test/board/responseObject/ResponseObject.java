@@ -6,17 +6,15 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @NoArgsConstructor
 @JsonInclude(Include.NON_NULL)
 public abstract class ResponseObject {
 
-    @Getter
-    String result;
-    @Getter
-    String msg;
-    @Getter
-    Object data;
+    public static final String SUCCESS = "SUCCESS";
+    public static final String FAIL    = "FAIL";
 
-    final String SUCCESS = "SUCCESS";
-    final String FAIL    = "FAIL";
+    String result;
+    String msg;
+    Object data;
 }
