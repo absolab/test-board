@@ -8,16 +8,16 @@ USE mysql;
 CREATE USER 'testboard'@'localhost' IDENTIFIED BY 'qwerty123';
 GRANT ALL PRIVILEGES ON test_board.* TO 'testboard'@'localhost';
 
+USE test_board;
+
 CREATE TABLE tb_user (
     uid         INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id          VARCHAR(30) NOT NULL,
-    pwd         BINARY(255) NOT NULL,
+    pwd         VARCHAR(256) NOT NULL,
     name        VARCHAR(30) NOT NULL,
     reg_date    datetime DEFAULT now(),
     wthdr_date  datetime
 ) ENGINE = InnoDB;
-
-INSERT INTO tb_user(id, pwd, name) VALUES ('admin', SHA2('admin', 256), 'admin');
 
 CREATE TABLE tb_board (
     bid         INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
