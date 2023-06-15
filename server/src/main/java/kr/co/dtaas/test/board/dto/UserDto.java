@@ -1,6 +1,8 @@
 package kr.co.dtaas.test.board.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
+@JsonInclude(Include.NON_NULL)
 @Table(name = "TB_USER")
 public class UserDto {
 
