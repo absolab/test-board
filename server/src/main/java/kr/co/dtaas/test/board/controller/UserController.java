@@ -26,10 +26,4 @@ public class UserController {
 
         return userService.logout(req);
     }
-
-    // @GetMapping("/users/info")
-    // @GetMapping("/users/{uid}")
-    // public UserDto testJPA(@PathVariable Long uid) {
-    //     return userRepository.findOneByUid(uid);
-    // }
 }
