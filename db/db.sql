@@ -12,7 +12,7 @@ USE test_board;
 
 CREATE TABLE tb_user (
     uid         INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id          VARCHAR(30) NOT NULL,
+    id          VARCHAR(30) NOT NULL UNIQUE KEY,
     pwd         VARCHAR(256) NOT NULL,
     name        VARCHAR(30) NOT NULL,
     reg_date    datetime DEFAULT now(),
@@ -40,3 +40,5 @@ CREATE TABLE tb_attach (
     crtn_date   datetime DEFAULT now(),
     FOREIGN KEY (bid) REFERENCES tb_board(bid) ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
+
+# ALTER TABLE tb_user ADD UNIQUE KEY (id);
