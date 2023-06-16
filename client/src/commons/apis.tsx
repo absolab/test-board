@@ -5,6 +5,7 @@ const config = () => {
     return {
         url: 'http://localhost',
         port: 8080,
+        config: { withCredentials: true }
     }
 }
 
@@ -16,11 +17,16 @@ const apis = {
         data.append('pwd', pwd);
 
         try {
-            let res = await axios.post(config().url + ':' + config().port + '/users/login', data);
+            let res = await axios.post(config().url + ':' + config().port + '/users/login', data, config().config);
             return res.data;
-        } catch (err) {
-            console.log(err);
-        }
+        } catch (_) { }
+    },
+
+    isLogined: async () => {
+        try {
+            const res = await axios.get(config().url + ':' + config().port + '/users/login', config().config);
+            return res.data
+        } catch (_) { }
     }
 
 }
