@@ -1,11 +1,12 @@
 import React from 'react';
-import LoginBox from './components/LoginBox';
+import Header from './components/Headers/Header';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <LoginBox></LoginBox>
+        <div className=' border-black border-2 bg-black'> 3</div>
+        <Header></Header>
       </header>
     </div>
   );

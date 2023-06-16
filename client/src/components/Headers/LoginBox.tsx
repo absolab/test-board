@@ -26,16 +26,16 @@ const LoginBox = () => {
     }
 
     return (
-        <div className="flex">
+        <div className="flex flex-row border-black border-2">
             <div>
                 ID
+                <input type="text" value={id} onChange={onIdChangeEvent} className=" border-2 border-black"/>
             </div>
-            <input type="text" value={id} onChange={onIdChangeEvent} className=" border-2 border-black"/>
-            <div>
-                PASSWORD
+            <div className="flex">
+                PW
+                <input type="password" value={pwd} onChange={onPwdChangeEvent} className="border-2 border-black"/>
             </div>
-            <input type="password" value={pwd} onChange={onPwdChangeEvent} className="border-2 border-black"/>
-            <button onClick={onBtnClickEvent} className="border-[1px]">로그인</button>
+            <button onClick={onBtnClickEvent} className="border-[5px]">로그인</button>
         </div>
     )
 }
