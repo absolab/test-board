@@ -6,7 +6,7 @@ const Board: React.FC<{data: Array<WriteInterface>}> = ({data}) => {
 
     const Items = data.map(item => {
         return (
-            <Item item={item} isHeader={false}></Item>
+            <Item item={item} isHeader={false} key={item.bid}></Item>
         )
     })
 
