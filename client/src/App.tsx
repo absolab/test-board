@@ -1,14 +1,15 @@
 import React from 'react';
 import Header from './components/Headers/Header';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { List } from './pages';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className=' border-black border-2 bg-black'> 3</div>
-        <Header></Header>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<List />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
