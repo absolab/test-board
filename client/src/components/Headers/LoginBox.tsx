@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import CryptoJS from "crypto-js";
-import apis from "../commons/apis";
+import apis from "../../commons/apis";
 
 const LoginBox = () => {
     
@@ -26,7 +26,7 @@ const LoginBox = () => {
     }
 
     return (
-        <div>
+        <div className="flex">
             <div>
                 ID
             </div>
