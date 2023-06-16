@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import kr.co.dtaas.test.board.dto.UserDto;
 import kr.co.dtaas.test.board.responseObject.LoginResponseObject;
 import kr.co.dtaas.test.board.responseObject.ResponseObject;
@@ -23,6 +22,7 @@ public class UserController {
 
         ResponseObject result;
         
+        // TODO: 나중에 지우기
         System.out.println("/users/login " + user.getId() + ", " + user.getPwd());
         
         result = userService.login(user);
@@ -35,17 +35,24 @@ public class UserController {
     }
 
     @GetMapping("/users/login")
-    public String isLogined(HttpServletRequest req) {
+    public ResponseObject isLogined(HttpServletRequest req) {
 
         ResponseObject result;
 
         Object data = req.getSession().getAttribute("login");
-        if (data == null) return "세션 없음";
-        else return "세션 있음";
+        if (data == null) {
+            result = new LoginResponseObject(LoginResponseObject.IS_LOGGED_IN, null);
+        } else {
+            result = new LoginResponseObject(LoginResponseObject.IS_NOT_LOGGED_IN, null);
+        }
+        
+        return result;
     }
 
     @PostMapping("/users/logout")
     public ResponseObject logout(HttpServletRequest req) {
+
+        req.getSession().removeAttribute("login");
 
         return userService.logout();
     }
