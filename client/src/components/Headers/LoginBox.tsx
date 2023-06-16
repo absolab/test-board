@@ -14,6 +14,8 @@ const LoginBox: React.FC<{isVisible: boolean}> = ({isVisible}) => {
     const onBtnClickEvent  = async () => {
         const hashPwd = CryptoJS.SHA256(pwd).toString(CryptoJS.enc.Hex);
         const res = await apis.postLogin(id, hashPwd);
+
+        console.log(res);
     }
 
     return isVisible ? (
