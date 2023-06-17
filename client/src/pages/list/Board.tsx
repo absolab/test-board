@@ -16,7 +16,6 @@ const Board: React.FC<{data: Array<WriteInterface>}> = ({data}) => {
                 {Items}
             </div>
             <div className="flex border-b-2 border-lime-400 justify-center">1 2 3 4 5</div>
-            <button className="ml-auto bg-gray-200 py-1 px-3 my-2 rounded hover:bg-gray-300">글작성</button>
         </div>
     )
 }
