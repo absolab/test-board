@@ -22,7 +22,7 @@ const apis = {
         } catch (_) { }
     },
 
-    isLogined: async () => {
+    getIsLogined: async () => {
         try {
             const res = await axios.get(config().url + ':' + config().port + '/users/login', config().config);
             return res.data
