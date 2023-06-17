@@ -1,5 +1,5 @@
-import { WriteInterface } from "../../commons/interface";
-import { Header } from "../../components";
+import { WriteInterface } from "commons/interface";
+import { Header } from "components";
 import Board from "./Board";
 
 const List = () => {

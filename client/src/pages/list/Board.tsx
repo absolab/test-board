@@ -1,4 +1,4 @@
-import { WriteInterface } from "../../commons/interface";
+import { WriteInterface } from "commons/interface";
 import Item from "./Item"
 
 const Board: React.FC<{data: Array<WriteInterface>}> = ({data}) => {

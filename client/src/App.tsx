@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { List, Write } from './pages';
+import { List, Write } from 'pages';
 
 function App() {
   return (

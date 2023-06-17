@@ -1,4 +1,4 @@
-import { WriteInterface } from "../../commons/interface";
+import { WriteInterface } from "commons/interface";
 
 const Item: React.FC<{item:WriteInterface, isHeader:boolean}> = ({item, isHeader}) => {
 
