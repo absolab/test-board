@@ -30,9 +30,7 @@ const List = () => {
 
     useEffect(() => {
         const name = sessionStorage.getItem('login');
-        if (name !== null) {
-            setIsLogined(true);
-        }
+        if (name !== null) { setIsLogined(true); }
     }, [])
 
     const onWriteBtnClickEvent = () => { navigate('/write'); }
@@ -43,7 +41,10 @@ const List = () => {
             <div className="flex flex-col mx-auto">
                 <div className="my-24 mx-auto text-gray-600 font-bold text-4xl">게시판</div>
                 <Board data={tempData}></Board>
-                <button className="ml-auto bg-gray-200 py-1 px-3 my-2 rounded hover:bg-gray-300" onClick={onWriteBtnClickEvent}>글작성</button>
+                {
+                    isLogined &&
+                    <button className="ml-auto bg-gray-200 py-1 px-3 my-2 rounded hover:bg-gray-300" onClick={onWriteBtnClickEvent}>글작성</button>
+                }
             </div>
         </div>
     )
