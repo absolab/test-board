@@ -18,6 +18,9 @@ const LoginBox: React.FC<{visiblity:boolean, setVisiblity:(input:boolean) => voi
         if (res.result === ResponseResultValue.SUCCESS) {
             sessionStorage.setItem('login', res.data.name);
             setVisiblity(false);
+
+            setId('');
+            setPwd('');
         }
     }
 
