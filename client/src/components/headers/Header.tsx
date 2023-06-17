@@ -1,23 +1,17 @@
-import { useEffect, useState } from "react";
 import GNB from "./GNB";
 import LoginBox from "./LoginBox";
 import LogoutBox from "./LogoutBox";
 
-const Header = () => {
+const Header:React.FC<{isLogined:boolean, setIsLogined:(input:boolean)=>void}> = ({isLogined, setIsLogined}) => {
 
-    const [isLogined, setIsLogined] = useState(false);
-    useEffect(() => {
-        const name = sessionStorage.getItem('login');
-        if (name !== null) {
-            setIsLogined(true);
-        }
-    }, [])
+    const setLoginBoxVisiblity = (input:boolean) => { setIsLogined(!input); }
+    const setLogoutBoxVisiblity = (input:boolean) => { setIsLogined(input); }
 
     return (
         <div className="flex p-3 bg-lime-200">
             <GNB></GNB>
-            <LoginBox isVisible={!isLogined}></LoginBox>
-            <LogoutBox isVisible={isLogined}></LogoutBox>
+            <LoginBox visiblity={!isLogined} setVisiblity={setLoginBoxVisiblity}></LoginBox>
+            <LogoutBox visiblity={isLogined} setVisiblity={setLogoutBoxVisiblity}></LogoutBox>
         </div>
     )
 }

@@ -3,13 +3,12 @@ import CryptoJS from "crypto-js";
 import apis from "../../commons/apis";
 import { LoginResponseInterface, ResponseResultValue } from "commons/interface";
 
-const LoginBox: React.FC<{isVisible: boolean}> = ({isVisible}) => {
-    
+const LoginBox: React.FC<{visiblity:boolean, setVisiblity:(input:boolean) => void}> = ({visiblity, setVisiblity}) => {
+
     const [id, setId] = useState('');
     const [pwd, setPwd] = useState('');
 
     const onIdChangeEvent  = (e: ChangeEvent<HTMLInputElement>) => { setId(e.target.value); }
-
     const onPwdChangeEvent = (e: ChangeEvent<HTMLInputElement>) => { setPwd(e.target.value); }
 
     const onBtnClickEvent  = async () => {
@@ -18,10 +17,11 @@ const LoginBox: React.FC<{isVisible: boolean}> = ({isVisible}) => {
 
         if (res.result === ResponseResultValue.SUCCESS) {
             sessionStorage.setItem('login', res.data.name);
+            setVisiblity(false);
         }
     }
 
-    return isVisible ? (
+    return visiblity ? (
         <div className="flex flex-row ml-auto">
             <input type="text" value={id} onChange={onIdChangeEvent} placeholder="아이디" className="m-1 border-[1px] p-1 border-gray-300"/>
             <input type="password" value={pwd} onChange={onPwdChangeEvent} placeholder="비밀번호" className="m-1 p-1 border-[1px] border-gray-300"/>

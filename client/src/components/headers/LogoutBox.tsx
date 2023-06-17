@@ -1,16 +1,17 @@
 import apis from "commons/apis";
 
-const LogoutBox: React.FC<{isVisible: boolean}> = ({isVisible}) =>{
+const LogoutBox: React.FC<{visiblity:boolean, setVisiblity:(input:boolean) => void}> = ({visiblity, setVisiblity}) =>{
 
     // 'login' 부분 바꾸기
     const name = sessionStorage.getItem('login');
 
     const onBtnClickEvent = async () => {
-        await apis.getLogout();
+        await apis.postLogout();
         sessionStorage.removeItem('login');
+        setVisiblity(false);
     }
 
-    return isVisible ? (
+    return visiblity ? (
         <div className="flex flex-row ml-auto">
             <div className="mr-5 my-auto">
                 {name}님 환영합니다

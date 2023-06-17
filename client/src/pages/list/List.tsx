@@ -3,7 +3,6 @@ import { Header } from "components";
 import Board from "./Board";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import apis from "commons/apis";
 
 const List = () => {
 
@@ -25,26 +24,22 @@ const List = () => {
         },
     ]
 
-    const [isLogined, setIsLogined] = useState(false);
-
-    const checkLogin = async () => {
-        const res = await apis.getIsLogined();
-        console.log(res);
-    }
-
-    useEffect(() => {
-        checkLogin();
-    }, []);
-
     const navigate = useNavigate();
 
-    const onWriteBtnClickEvent = () => {
-        navigate('/link');
-    }
+    const [isLogined, setIsLogined] = useState(false);
+
+    useEffect(() => {
+        const name = sessionStorage.getItem('login');
+        if (name !== null) {
+            setIsLogined(true);
+        }
+    }, [])
+
+    const onWriteBtnClickEvent = () => { navigate('/write'); }
 
     return (
         <div className="flex flex-col">
-            <Header></Header>
+            <Header isLogined={isLogined} setIsLogined={setIsLogined}></Header>
             <div className="flex flex-col mx-auto">
                 <div className="my-24 mx-auto text-gray-600 font-bold text-4xl">게시판</div>
                 <Board data={tempData}></Board>
