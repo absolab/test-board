@@ -32,9 +32,9 @@ const apis = {
         } catch (_) { console.log(_); }
     },
 
-    getLogout: async () => {
+    postLogout: async () => {
         try {
-            const res = await axios.get(config().url + ':' + config().port + '/users/logout', config().config);
+            const res = await axios.post(config().url + ':' + config().port + '/users/logout', null, config().config);
             return res.data;
         } catch (_) { console.log(_); }
     },
