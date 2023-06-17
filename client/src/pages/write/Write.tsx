@@ -10,9 +10,7 @@ const Write = () => {
 
     useEffect(() => {
         const name = sessionStorage.getItem('login');
-        if (name !== null) {
-            setIsLogined(true);
-        }
+        if (name !== null) { setIsLogined(true); }
     }, [])
 
     const WriteBtnClickEvent = () => {
