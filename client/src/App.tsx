@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './components/Headers/Header';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { List, Write } from './pages';
 
