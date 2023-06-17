@@ -22,9 +22,6 @@ public class UserController {
 
         ResponseObject result;
 
-        // TODO: 나중에 지우기
-        System.out.println("/users/login " + user.getId() + ", " + user.getPwd());
-
         result = userService.login(user);
 
         if (result.getResult() == ResponseObject.SUCCESS) {
