@@ -21,10 +21,10 @@ public class UserController {
     public ResponseObject login(HttpServletRequest req, UserDto user) {
 
         ResponseObject result;
-        
+
         // TODO: 나중에 지우기
         System.out.println("/users/login " + user.getId() + ", " + user.getPwd());
-        
+
         result = userService.login(user);
 
         if (result.getResult() == ResponseObject.SUCCESS) {
@@ -40,12 +40,13 @@ public class UserController {
         ResponseObject result;
 
         Object data = req.getSession().getAttribute("login");
-        if (data == null) {
+        if (data != null) {
+            System.out.println(data);
             result = new LoginResponseObject(LoginResponseObject.IS_LOGGED_IN, null);
         } else {
             result = new LoginResponseObject(LoginResponseObject.IS_NOT_LOGGED_IN, null);
         }
-        
+
         return result;
     }
 
