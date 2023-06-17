@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import CryptoJS from "crypto-js";
 import apis from "../../commons/apis";
+import { LoginResponseInterface, ResponseResultValue } from "commons/interface";
 
 const LoginBox: React.FC<{isVisible: boolean}> = ({isVisible}) => {
     
@@ -13,9 +14,11 @@ const LoginBox: React.FC<{isVisible: boolean}> = ({isVisible}) => {
 
     const onBtnClickEvent  = async () => {
         const hashPwd = CryptoJS.SHA256(pwd).toString(CryptoJS.enc.Hex);
-        const res = await apis.postLogin(id, hashPwd);
+        const res: LoginResponseInterface = await apis.postLogin(id, hashPwd);
 
-        console.log(res);
+        if (res.result === ResponseResultValue.SUCCESS) {
+            sessionStorage.setItem('login', res.data.name);
+        }
     }
 
     return isVisible ? (
@@ -25,10 +28,10 @@ const LoginBox: React.FC<{isVisible: boolean}> = ({isVisible}) => {
             <button onClick={onBtnClickEvent} className="border-[1px] m-1 p-1 bg-gray-300">로그인</button>
         </div>
     )
-     :
-     (
+    :
+    (
         <div></div>
-     )
+    )
 }
 
 export default LoginBox;
