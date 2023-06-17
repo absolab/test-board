@@ -32,6 +32,13 @@ const apis = {
         } catch (_) { console.log(_); }
     },
 
+    getLogout: async () => {
+        try {
+            const res = await axios.get(config().url + ':' + config().port + '/users/logout', config().config);
+            return res.data;
+        } catch (_) { console.log(_); }
+    },
+
     // 글 목록
     getList: async () => {
         try {
