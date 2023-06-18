@@ -1,5 +1,6 @@
 package kr.co.dtaas.test.board.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +44,25 @@ public class BoardService implements BoardServiceImpl {
 
         BoardResponseObject result;
 
-        BoardDto data = boardRepository.save(board);
+        int data = boardRepository.insertBoard(board.getUid(), board.getTitle(), board.getContent());
 
-        if (data != null) {
+        if (data == 1) {
+            result = new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS, data);
+        } else {
+            result = null;
+        }
+
+        return result;
+    }
+
+    @Override
+    public ResponseObject editBoard(BoardDto board) {
+
+        BoardResponseObject result;
+
+        int data = boardRepository.updateBoard(board.getBid(), board.getUid(), board.getTitle(), board.getContent(), LocalDateTime.now());
+
+        if (data == 1) {
             result = new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS, data);
         } else {
             result = null;
@@ -59,5 +76,4 @@ public class BoardService implements BoardServiceImpl {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteBoard'");
     }
-    
 }
