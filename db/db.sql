@@ -15,8 +15,8 @@ CREATE TABLE tb_user (
     id          VARCHAR(30) NOT NULL UNIQUE KEY,
     pwd         VARCHAR(256) NOT NULL,
     name        VARCHAR(30) NOT NULL,
-    reg_date    datetime DEFAULT now(),
-    wthdr_date  datetime
+    reg_date    datetime DEFAULT now() NOT NULL,
+    wthdr_date  datetime DEFAULT NULL
 ) ENGINE = InnoDB;
 
 CREATE TABLE tb_board (
@@ -24,12 +24,11 @@ CREATE TABLE tb_board (
     uid         INT NOT NULL,
     title       VARCHAR(100) NOT NULL,
     content     TEXT NOT NULL,
-    deleted     bit(1) DEFAULT 0,
-    crtn_date   datetime DEFAULT now(),
-    mdfd_date   datetime DEFAULT now(),
+    deleted     bit(1) DEFAULT 0 NOT NULL,
+    crtn_date   datetime DEFAULT now() NOT NULL,
+    mdfd_date   datetime DEFAULT now() NOT NULL,
     FOREIGN KEY (uid) REFERENCES tb_user(uid) ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
-
 
 CREATE TABLE tb_attach (
     aid         INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
