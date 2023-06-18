@@ -1,5 +1,7 @@
 package kr.co.dtaas.test.board.dto;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -15,7 +17,7 @@ public class BoardUserVO {
     private int bid;
     private String title;
     private String content;
-    private String crtnDate;
-    private String mdfdDate;
+    private LocalDateTime crtnDate;
+    private LocalDateTime mdfdDate;
     private String name;
 }

@@ -9,7 +9,5 @@ public interface BoardServiceImpl {
 
     public ResponseObject writeBoard(BoardDto board);
 
-    public ResponseObject editBoard(BoardDto board);
-
     public ResponseObject deleteBoard(BoardDto board);
 }

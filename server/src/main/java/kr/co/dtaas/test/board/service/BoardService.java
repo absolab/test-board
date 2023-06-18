@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.dtaas.test.board.dto.BoardDto;
 import kr.co.dtaas.test.board.dto.BoardUserVO;
+import kr.co.dtaas.test.board.repository.jpa.BoardRepository;
 import kr.co.dtaas.test.board.repository.jpa.BoardUserRepository;
 import kr.co.dtaas.test.board.responseObject.BoardResponseObject;
 import kr.co.dtaas.test.board.responseObject.ResponseObject;
@@ -14,6 +15,9 @@ import kr.co.dtaas.test.board.service.impl.BoardServiceImpl;
 
 @Service
 public class BoardService implements BoardServiceImpl {
+
+    @Autowired
+    BoardRepository boardRepository;
 
     @Autowired
     BoardUserRepository boardUserRepository;
@@ -36,14 +40,18 @@ public class BoardService implements BoardServiceImpl {
 
     @Override
     public ResponseObject writeBoard(BoardDto board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'writeBoard'");
-    }
 
-    @Override
-    public ResponseObject editBoard(BoardDto board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'editBoard'");
+        BoardResponseObject result;
+
+        BoardDto data = boardRepository.save(board);
+
+        if (data != null) {
+            result = new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS, data);
+        } else {
+            result = null;
+        }
+
+        return result;
     }
 
     @Override
