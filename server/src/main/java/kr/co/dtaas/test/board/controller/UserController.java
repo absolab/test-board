@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/users/login")
+    @PostMapping("/user/login")
     public ResponseObject login(HttpServletRequest req, UserDto user) {
 
         ResponseObject result;
@@ -31,7 +31,7 @@ public class UserController {
         return result;
     }
 
-    @GetMapping("/users/login")
+    @GetMapping("/user/login")
     public ResponseObject isLogined(HttpServletRequest req) {
 
         ResponseObject result;
@@ -47,7 +47,7 @@ public class UserController {
         return result;
     }
 
-    @PostMapping("/users/logout")
+    @PostMapping("/user/logout")
     public ResponseObject logout(HttpServletRequest req) {
 
         req.getSession().removeAttribute("login");
