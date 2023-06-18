@@ -1,9 +1,9 @@
 export interface WriteInterface {
-    bid?: number,
+    bid?: number | string,
     title?: string,
     content?: string,
-    writer?: string,
-    date?: string
+    name?: string,
+    mdfdDate?: string
 }
 
 export const ResponseResultValue = {
