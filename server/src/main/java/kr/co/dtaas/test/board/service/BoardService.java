@@ -5,13 +5,9 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.inject.Inject;
 import kr.co.dtaas.test.board.dto.BoardDto;
-import kr.co.dtaas.test.board.dto.UserBoardDto;
-import kr.co.dtaas.test.board.dto.UserBoardVO;
-import kr.co.dtaas.test.board.repository.jpa.BoardRepository;
-// import kr.co.dtaas.test.board.repository.jpa.UserBoardRepository;
-import kr.co.dtaas.test.board.repository.mapper.UserBoardMapper;
+import kr.co.dtaas.test.board.dto.BoardUserVO;
+import kr.co.dtaas.test.board.repository.jpa.BoardUserRepository;
 import kr.co.dtaas.test.board.responseObject.BoardResponseObject;
 import kr.co.dtaas.test.board.responseObject.ResponseObject;
 import kr.co.dtaas.test.board.service.impl.BoardServiceImpl;
@@ -19,22 +15,15 @@ import kr.co.dtaas.test.board.service.impl.BoardServiceImpl;
 @Service
 public class BoardService implements BoardServiceImpl {
 
-    // @Autowired
-    // UserBoardRepository userBoardRepository;
-
     @Autowired
-    UserBoardMapper userBoardMapper;
+    BoardUserRepository boardUserRepository;
 
     @Override
     public ResponseObject boardList() {
 
         BoardResponseObject result;
 
-        // ArrayList<NameBoardDto> data = userBoardRepository.findAllBoardsWithUser();
-        // System.out.println(data);
-
-        // ArrayList<UserBoardDto> data = userBoardRepository.findAllBoardsWithUser();
-        ArrayList<UserBoardVO> data = userBoardMapper.findAll();
+        ArrayList<BoardUserVO> data = boardUserRepository.findAllBoardWithUserName();
 
         if (data != null) {
             result = new BoardResponseObject(BoardResponseObject.GET_LIST, data);
