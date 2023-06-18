@@ -19,7 +19,7 @@ const apis = {
         data.append('pwd', pwd);
 
         try {
-            let res = await axios.post(config().url + ':' + config().port + '/users/login', data, config().config);
+            let res = await axios.post(config().url + ':' + config().port + '/user/login', data, config().config);
             return res.data;
         } catch (_) { console.log(_); }
     },
@@ -27,14 +27,14 @@ const apis = {
     // 로그인 확인
     getIsLogined: async () => {
         try {
-            const res = await axios.get(config().url + ':' + config().port + '/users/login', config().config);
+            const res = await axios.get(config().url + ':' + config().port + '/user/login', config().config);
             return res.data;
         } catch (_) { console.log(_); }
     },
 
     postLogout: async () => {
         try {
-            const res = await axios.post(config().url + ':' + config().port + '/users/logout', null, config().config);
+            const res = await axios.post(config().url + ':' + config().port + '/user/logout', null, config().config);
             return res.data;
         } catch (_) { console.log(_); }
     },
