@@ -1,5 +1,5 @@
 export interface WriteInterface {
-    bid?: string,
+    bid?: number,
     title?: string,
     content?: string,
     writer?: string,
@@ -23,4 +23,8 @@ export interface LoginResponseInterface extends ResponseInterface {
         name: string,
         reg_date: string,
     }
+}
+
+export interface BoardListResponseInterface extends ResponseInterface {
+    data: Array<WriteInterface>
 }

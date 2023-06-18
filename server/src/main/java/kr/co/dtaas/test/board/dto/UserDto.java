@@ -18,7 +18,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @JsonInclude(Include.NON_NULL)
-@Table(name = "TB_USER")
+@Table(name="TB_USER")
 public class UserDto {
 
     @Id
