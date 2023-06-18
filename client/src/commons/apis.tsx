@@ -57,8 +57,21 @@ const apis = {
         try {
             const res = await axios.post(config().url + ':' + config().port + '/board/write', data, config().config);
             return res.data;
-        } catch (_) { console.log (_); }
+        } catch (_) { console.log(_); }
     },
+
+    // 글 수정
+    postEditWrite: async (title:string, content:string) => {
+
+        const data = new FormData();
+        data.append('title', title);
+        data.append('content', content);
+
+        try {
+            const res = await axios.post(config().url + ':' + config().port + '/board/write', data, config().config);
+            return res.data;
+        } catch (_) { console.log(_) }
+    }
 }
 
 export default apis;
