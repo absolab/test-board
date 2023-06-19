@@ -9,6 +9,7 @@ const LogoutBox: React.FC<{visiblity:boolean, setVisiblity:(input:boolean) => vo
         await apis.postLogout();
         sessionStorage.removeItem('login');
         setVisiblity(false);
+        window.location.reload();
     }
 
     return visiblity ? (
