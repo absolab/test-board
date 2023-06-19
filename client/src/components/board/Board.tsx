@@ -1,10 +1,10 @@
 import { BoardInterface } from "commons/interface";
 import { ChangeEvent } from "react";
 
-const Board:React.FC<{data:BoardInterface, readOnly:boolean}> = ({data, readOnly}) => {
+const Board:React.FC<{data:BoardInterface, setData:(input:BoardInterface)=> void, readOnly:boolean}> = ({data, setData, readOnly}) => {
 
-    function onTitleChangeEvent(e: ChangeEvent<HTMLInputElement>) { data.title = e.target.value; }
-    function onContentChangeEvent(e: ChangeEvent<HTMLTextAreaElement>) { data.content = e.target.value; }
+    const onTitleChangeEvent = (e: ChangeEvent<HTMLInputElement>) => { setData({...data, title:e.target.value}); }
+    const onContentChangeEvent = (e: ChangeEvent<HTMLTextAreaElement>) => { setData({...data, content:e.target.value}); }
 
     return (
         <div className="flex flex-col mx-auto">
