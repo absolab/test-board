@@ -27,10 +27,11 @@ const Detail = () => {
             const getDetail = async () => {
 
                 const res: BoardDetailResponseInterface = await apis.getDetail(numberBid);
-                if (res.result === ResponseResultValue.SUCCESS) {
+                if (res && res.result === ResponseResultValue.SUCCESS) {
                     setData(res.data);
                 } else {
-                    // 잘못된 bid입니다!
+                    alert('잠시 후 다시 시도하세요')
+                    navigate(-1);
                 }
             }
 
