@@ -12,10 +12,10 @@ const Item: React.FC<{item:WriteInterface, isHeader:boolean}> = ({item, isHeader
                     {item.title}
                 </div>
                 <div className="w-24 text-center mx-1 font-bold">
-                    {item.writer}
+                    {item.name}
                 </div>
                 <div className="w-24 text-center mx-1 font-bold">
-                    {item.date}
+                    {item.crtnDate}
                 </div>
             </div>
         )
@@ -29,10 +29,10 @@ const Item: React.FC<{item:WriteInterface, isHeader:boolean}> = ({item, isHeader
                     {item.title}
                 </div>
                 <div className="w-24 text-center mx-1">
-                    {item.writer}
+                    {item.name}
                 </div>
                 <div className="w-24 text-center mx-1">
-                    {item.date}
+                    {item.crtnDate}
                 </div>
             </div>
         )
