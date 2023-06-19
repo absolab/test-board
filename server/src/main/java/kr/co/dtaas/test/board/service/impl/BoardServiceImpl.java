@@ -7,6 +7,8 @@ public interface BoardServiceImpl {
 
     public ResponseObject boardList();
 
+    public ResponseObject detailBoard(int bid);
+
     public ResponseObject writeBoard(BoardDto board);
 
     public ResponseObject editBoard(BoardDto board);

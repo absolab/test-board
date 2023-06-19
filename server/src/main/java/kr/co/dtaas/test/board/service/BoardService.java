@@ -40,6 +40,22 @@ public class BoardService implements BoardServiceImpl {
     }
 
     @Override
+    public ResponseObject detailBoard(int bid) {
+        
+        BoardResponseObject result;
+
+        BoardUserVO data = boardUserRepository.findOneBoardWithUserNameByBid(bid);
+
+        if (data == null) {
+            result = null;
+        } else {
+            result = new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS, data);
+        }
+
+        return result;
+    }
+
+    @Override
     public ResponseObject writeBoard(BoardDto board) {
 
         BoardResponseObject result;
