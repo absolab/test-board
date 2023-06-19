@@ -15,7 +15,7 @@ const Write = () => {
         if (name !== null) { setIsLogined(true); }
     }, [])
 
-    const WriteBtnClickEvent = async () => {
+    const onWriteBtnClickEvent = async () => {
 
         if (!data.title) {
             console.log('제목을 입력 해 주세요!');
@@ -37,8 +37,8 @@ const Write = () => {
         }
     }
 
-    const ReturnBtnClickEvent = () => {
-        navigate('/');
+    const onReturnBtnClickEvent = () => {
+        navigate(-1);
     }
 
     return (
@@ -48,8 +48,8 @@ const Write = () => {
                 <div className="my-24 mx-auto text-gray-600 font-bold text-4xl">글작성</div>
                 <Board data={data} readOnly={false}></Board>
                 <div className="flex mx-auto">
-                    <button className="mx-1 bg-gray-200 py-1 px-3 my-2 rounded hover:bg-gray-300" onClick={WriteBtnClickEvent}>등록</button>
-                    <button className="mx-1 bg-gray-200 py-1 px-3 my-2 rounded hover:bg-gray-300" onClick={ReturnBtnClickEvent}>취소</button>
+                    <button className="mx-1 bg-gray-200 py-1 px-3 my-2 rounded hover:bg-gray-300" onClick={onWriteBtnClickEvent}>등록</button>
+                    <button className="mx-1 bg-gray-200 py-1 px-3 my-2 rounded hover:bg-gray-300" onClick={onReturnBtnClickEvent}>취소</button>
                 </div>
             </div>
         </div>
