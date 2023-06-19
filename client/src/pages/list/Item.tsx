@@ -1,6 +1,13 @@
-import { WriteInterface } from "commons/interface";
+import { BoardInterface } from "commons/interface";
+import { useNavigate } from "react-router-dom";
 
-const Item: React.FC<{item:WriteInterface, isHeader:boolean}> = ({item, isHeader}) => {
+const Item: React.FC<{item:BoardInterface, isHeader:boolean}> = ({item, isHeader}) => {
+
+    const navigate = useNavigate();
+
+    const onItemClickEvent = () => {
+        navigate("/detail/" + item.bid);
+    }
 
     if (isHeader) {
         return (
@@ -21,7 +28,7 @@ const Item: React.FC<{item:WriteInterface, isHeader:boolean}> = ({item, isHeader
         )
     } else {
         return (
-            <div className="flex border-gray-300 border-b-[1px] h-8 items-center">
+            <div className="flex border-gray-300 border-b-[1px] h-8 items-center cursor-pointer" onClick={onItemClickEvent}>
                 <div className="w-24 text-center mx-1">
                     {item.bid}
                 </div>

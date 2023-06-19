@@ -1,14 +1,15 @@
-export interface WriteInterface {
+export const ResponseResultValue = {
+    SUCCESS: 'SUCCESS',
+    FAIL: 'FAIL',
+}
+
+export interface BoardInterface {
     bid?: number | string,
     title?: string,
     content?: string,
     name?: string,
-    crtnDate?: string
-}
-
-export const ResponseResultValue = {
-    SUCCESS: 'SUCCESS',
-    FAIL: 'FAIL',
+    crtnDate?: string,
+    mdfdDate?: string,
 }
 
 export interface ResponseInterface {
@@ -26,5 +27,9 @@ export interface LoginResponseInterface extends ResponseInterface {
 }
 
 export interface BoardListResponseInterface extends ResponseInterface {
-    data: Array<WriteInterface>
+    data: Array<BoardInterface>
+}
+
+export interface BoardDetailResponseInterface extends ResponseInterface {
+    data: BoardInterface
 }

@@ -47,6 +47,14 @@ const apis = {
         } catch (_) { console.log(_) }
     },
 
+    // 글 정보
+    getDetail: async (bid: number) => {
+        try {
+            const res = await axios.get(config().url + ':' + config().port + '/board/detail/' + bid, config().config);
+            return res.data;
+        } catch (_) { console.log(_) }
+    },
+
     // 글 등록
     postWrite: async (title:string, content:string) => {
 
