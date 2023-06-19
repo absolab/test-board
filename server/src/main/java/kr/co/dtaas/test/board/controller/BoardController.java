@@ -21,9 +21,9 @@ public class BoardController {
     BoardService boardService;
 
     @GetMapping("/board/list")
-    public ResponseObject boardList() {
+    public ResponseObject boardList(int pageNumber) {
 
-        ResponseObject result = boardService.boardList();
+        ResponseObject result = boardService.boardList(pageNumber);
 
         return result;
     }
