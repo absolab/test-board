@@ -29,6 +29,7 @@ const Page:React.FC<{currentPageNum:number, setCurrentPageNum:(pageNum:number)=>
         )
     }
 
+    // 5개만 보이게끔 수정, Num-1 너무 보기 싫다
     const PageButtons = Array.from({ length: pageCount }, (_, index) => index + 1).map((pageNumber) => (
         <PageButton key={pageNumber} num={pageNumber} />
     ));
