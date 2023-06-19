@@ -14,7 +14,7 @@ CREATE TABLE tb_user (
     uid         INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id          VARCHAR(30) NOT NULL UNIQUE KEY,
     pwd         VARCHAR(256) NOT NULL,
-    name        VARCHAR(30) NOT NULL,
+    name        VARCHAR(30) NOT NULL UNIQUE KEY,
     reg_date    datetime DEFAULT now() NOT NULL,
     wthdr_date  datetime DEFAULT NULL
 ) ENGINE = InnoDB;
@@ -41,3 +41,4 @@ CREATE TABLE tb_attach (
 ) ENGINE = InnoDB;
 
 # ALTER TABLE tb_user ADD UNIQUE KEY (id);
+# ALTER TABLE tb_user ADD UNIQUE KEY (name);

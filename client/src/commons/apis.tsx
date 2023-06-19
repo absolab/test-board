@@ -40,9 +40,17 @@ const apis = {
     },
 
     // 글 목록
-    getList: async () => {
+    getList: async (pageNumber:number) => {
         try {
-            const res = await axios.get(config().url + ':' + config().port + '/board/list', config().config);
+            const res = await axios.get(config().url + ':' + config().port + '/board/list', {params: {pageNumber: pageNumber}});
+            return res.data;
+        } catch (_) { console.log(_) }
+    },
+
+    // 글 정보
+    getDetail: async (bid: number) => {
+        try {
+            const res = await axios.get(config().url + ':' + config().port + '/board/detail/' + bid, config().config);
             return res.data;
         } catch (_) { console.log(_) }
     },
@@ -61,14 +69,15 @@ const apis = {
     },
 
     // 글 수정
-    postEditWrite: async (title:string, content:string) => {
+    postEditWrite: async (bid:number, title:string, content:string) => {
 
         const data = new FormData();
+        data.append('bid', bid.toString());
         data.append('title', title);
         data.append('content', content);
 
         try {
-            const res = await axios.post(config().url + ':' + config().port + '/board/write', data, config().config);
+            const res = await axios.post(config().url + ':' + config().port + '/board/edit', data, config().config);
             return res.data;
         } catch (_) { console.log(_) }
     }

@@ -6,10 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @Entity
 @AllArgsConstructor
 public class BoardUserVO {
@@ -20,4 +18,13 @@ public class BoardUserVO {
     private LocalDateTime crtnDate;
     private LocalDateTime mdfdDate;
     private String name;
+
+    // content가 빠진 생성자 (list용)
+    public BoardUserVO(int bid, String title, LocalDateTime crtnDate, LocalDateTime mdfdDate, String name) {
+        this.bid = bid;
+        this.title = title;
+        this.crtnDate = crtnDate;
+        this.mdfdDate = mdfdDate;
+        this.name = name;
+    }
 }

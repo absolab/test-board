@@ -5,7 +5,9 @@ import kr.co.dtaas.test.board.responseObject.ResponseObject;
 
 public interface BoardServiceImpl {
 
-    public ResponseObject boardList();
+    public ResponseObject boardList(int pageNumber);
+
+    public ResponseObject detailBoard(int bid);
 
     public ResponseObject writeBoard(BoardDto board);
 

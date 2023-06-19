@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kr.co.dtaas.test.board.dto.BoardDto;
@@ -24,16 +27,33 @@ public class BoardService implements BoardServiceImpl {
     BoardUserRepository boardUserRepository;
 
     @Override
-    public ResponseObject boardList() {
-
+    public ResponseObject boardList(int pageNumber) {
         BoardResponseObject result;
 
-        ArrayList<BoardUserVO> data = boardUserRepository.findAllBoardWithUserName();
+        Pageable pageable = PageRequest.of(pageNumber, 10, Sort.by("bid").descending());
+
+        ArrayList<BoardUserVO> data = boardUserRepository.findAllBoardWithUserName(pageable);
 
         if (data != null) {
             result = new BoardResponseObject(BoardResponseObject.GET_LIST, data);
         } else {
             result = new BoardResponseObject(BoardResponseObject.GET_LIST, null);
+        }
+
+        return result;
+    }
+
+    @Override
+    public ResponseObject detailBoard(int bid) {
+        
+        BoardResponseObject result;
+
+        BoardUserVO data = boardUserRepository.findOneBoardWithUserNameByBid(bid);
+
+        if (data == null) {
+            result = null;
+        } else {
+            result = new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS, data);
         }
 
         return result;
