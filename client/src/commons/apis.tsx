@@ -40,9 +40,9 @@ const apis = {
     },
 
     // 글 목록
-    getList: async () => {
+    getList: async (pageNumber:number) => {
         try {
-            const res = await axios.get(config().url + ':' + config().port + '/board/list', config().config);
+            const res = await axios.get(config().url + ':' + config().port + '/board/list', {params: {pageNumber: pageNumber}});
             return res.data;
         } catch (_) { console.log(_) }
     },
