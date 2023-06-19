@@ -9,6 +9,8 @@ public interface BoardServiceImpl {
 
     public ResponseObject detailBoard(int bid);
 
+    public ResponseObject totalPageCount();
+
     public ResponseObject writeBoard(BoardDto board);
 
     public ResponseObject editBoard(BoardDto board);

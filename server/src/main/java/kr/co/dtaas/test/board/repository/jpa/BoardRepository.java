@@ -11,6 +11,8 @@ import kr.co.dtaas.test.board.dto.BoardDto;
 
 public interface BoardRepository extends JpaRepository<BoardDto, Long> {
 
+    int countByDeleted(int deleted);
+
     @Modifying
     @Query("insert into BoardDto(uid, title, content) VALUES (:uid, :title, :content)")
     int insertBoard(@Param("uid") int uid, @Param("title") String title, @Param("content") String content);

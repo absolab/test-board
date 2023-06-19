@@ -20,6 +20,8 @@ import kr.co.dtaas.test.board.service.impl.BoardServiceImpl;
 @Service
 public class BoardService implements BoardServiceImpl {
 
+    private final static int PAGE_SIZE = 10;
+
     @Autowired
     BoardRepository boardRepository;
 
@@ -30,7 +32,7 @@ public class BoardService implements BoardServiceImpl {
     public ResponseObject boardList(int pageNumber) {
         BoardResponseObject result;
 
-        Pageable pageable = PageRequest.of(pageNumber, 10, Sort.by("bid").descending());
+        Pageable pageable = PageRequest.of(pageNumber, PAGE_SIZE, Sort.by("bid").descending());
 
         ArrayList<BoardUserVO> data = boardUserRepository.findAllBoardWithUserName(pageable);
 
@@ -45,7 +47,7 @@ public class BoardService implements BoardServiceImpl {
 
     @Override
     public ResponseObject detailBoard(int bid) {
-        
+
         BoardResponseObject result;
 
         BoardUserVO data = boardUserRepository.findOneBoardWithUserNameByBid(bid);
@@ -57,6 +59,13 @@ public class BoardService implements BoardServiceImpl {
         }
 
         return result;
+    }
+
+    @Override
+    public ResponseObject totalPageCount() {
+        int data = boardRepository.countByDeleted(0);
+
+        return new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS, data / PAGE_SIZE + 1);
     }
 
     @Override

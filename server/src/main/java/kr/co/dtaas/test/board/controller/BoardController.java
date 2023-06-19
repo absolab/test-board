@@ -28,11 +28,18 @@ public class BoardController {
         return result;
     }
 
+    @GetMapping("/board/page")
+    public ResponseObject totalPage() {
+
+        ResponseObject result = boardService.totalPageCount();
+
+        return result;
+    }
+
     @GetMapping("/board/detail/{bid}")
     public ResponseObject boardDetail(@PathVariable("bid") int bid) {
 
         ResponseObject result = boardService.detailBoard(bid);
-
         return result;
     }
 
