@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apis from "commons/apis";
 import Item from "./Item";
+import Page from "./Page";
 
 const List = () => {
 
@@ -12,7 +13,7 @@ const List = () => {
     const [isLogined, setIsLogined] = useState(false);
     const [listData, setListData] = useState<BoardInterface[]>([]);
     const [pageNumber, setPageNumber] = useState<number>(0);
-    
+
     useEffect(() => {
         const name = sessionStorage.getItem('login');
         if (name !== null) { setIsLogined(true); }
@@ -32,10 +33,6 @@ const List = () => {
         )
     })
 
-    const onPagenationClickEvent = (num:number) => {
-        setPageNumber(num);
-    }
-
     const onWriteBtnClickEvent = () => { navigate('/write'); }
 
     return (
@@ -48,10 +45,7 @@ const List = () => {
                         <Item item={{ bid: "번호", title: "제목", name: "글쓴이", crtnDate: "작성일" }} isHeader={true}></Item>
                         {Items}
                     </div>
-                    <div className="flex border-b-2 border-lime-400 justify-center">
-                        <button className="m-1" onClick={() => onPagenationClickEvent(0)}>1</button>
-                        <button className="m-1" onClick={() => onPagenationClickEvent(1)}>2</button>
-                    </div>
+                    <Page currentPageNum={pageNumber} setCurrentPageNum={setPageNumber}></Page>
                 </div>
                 { isLogined && <button className="ml-auto bg-gray-200 py-1 px-3 my-2 rounded hover:bg-gray-300" onClick={onWriteBtnClickEvent}>글작성</button> }
             </div>

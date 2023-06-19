@@ -33,3 +33,7 @@ export interface BoardListResponseInterface extends ResponseInterface {
 export interface BoardDetailResponseInterface extends ResponseInterface {
     data: BoardInterface
 }
+
+export interface PageCountResponseInterface extends ResponseInterface {
+    data: number;
+}
