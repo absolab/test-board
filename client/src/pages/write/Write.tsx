@@ -12,34 +12,23 @@ const Write = () => {
 
     useEffect(() => {
         const name = sessionStorage.getItem('login');
-        if (name !== null) { setIsLogined(true); }
-    }, [])
+        if (name !== null) { setIsLogined(true); data.name = name; data.crtnDate = new Date().toISOString()}
+    }, [data])
 
     const onWriteBtnClickEvent = async () => {
 
-        if (!data.title) {
-            console.log('제목을 입력 해 주세요!');
-            return;
-        }
-
-        if (!data.content) {
-            console.log('내용을 입력 해 주세요!');
-            return;
-        }
+        if (!data.title) { console.log('제목을 입력 해 주세요!'); return; }
+        if (!data.content) { console.log('내용을 입력 해 주세요!'); return; }
 
         const res: ResponseInterface = await apis.postWrite(data.title, data.content);
-        if (res.result === ResponseResultValue.SUCCESS) {
-            // 성공!
+        if (res.result === ResponseResultValue.SUCCESS) {// 성공!
             navigate("/");
-        } else {
-            // 실패!
+        } else { // 실패!
             navigate("/");
         }
     }
 
-    const onReturnBtnClickEvent = () => {
-        navigate(-1);
-    }
+    const onReturnBtnClickEvent = () => { navigate(-1); }
 
     return (
         <div className="flex flex-col">
