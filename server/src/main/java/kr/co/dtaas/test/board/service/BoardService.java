@@ -13,8 +13,6 @@ import kr.co.dtaas.test.board.dto.BoardEntity;
 import kr.co.dtaas.test.board.dto.BoardVO;
 import kr.co.dtaas.test.board.repository.jpa.BoardRepository;
 import kr.co.dtaas.test.board.repository.jpa.BoardWithUserRepository;
-import kr.co.dtaas.test.board.responseObject.BoardResponseObject;
-import kr.co.dtaas.test.board.responseObject.ResponseObject;
 import kr.co.dtaas.test.board.service.impl.BoardServiceImpl;
 
 @Service
@@ -29,92 +27,51 @@ public class BoardService implements BoardServiceImpl {
     BoardWithUserRepository boardUserRepository;
 
     @Override
-    public ResponseObject boardList(int pageNumber) {
-        BoardResponseObject result;
+    public ArrayList<BoardVO> boardList(int pageNumber) {
 
         Pageable pageable = PageRequest.of(pageNumber, PAGE_SIZE, Sort.by("bid").descending());
 
         ArrayList<BoardVO> data = boardUserRepository.findAllBoardWithUserName(pageable);
 
-        if (data != null) {
-            result = new BoardResponseObject(BoardResponseObject.LIST_SUCCESS, data);
-        } else {
-            result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
-        }
-
-        return result;
+        return data;
     }
 
     @Override
-    public ResponseObject detailBoard(int bid) {
-
-        BoardResponseObject result;
+    public BoardVO detailBoard(int bid) {
 
         BoardVO data = boardUserRepository.findOneBoardWithUserNameByBid(bid);
 
-        if (data == null) {
-            result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
-        } else {
-            result = new BoardResponseObject(BoardResponseObject.ONE_SUCCESS, data);
-        }
-
-        return result;
+        return data;
     }
 
     @Override
-    public ResponseObject totalPageCount() {
+    public int totalPageCount() {
         int data = boardRepository.countByDeleted(0);
 
-        return new BoardResponseObject(BoardResponseObject.PAGE_SUCCESS, data / PAGE_SIZE + 1);
+        return data / PAGE_SIZE + 1;
     }
 
     @Override
-    public ResponseObject writeBoard(BoardEntity board) {
-
-        BoardResponseObject result;
+    public boolean writeBoard(BoardEntity board) {
 
         int data = boardRepository.insertBoard(board.getUid(), board.getTitle(), board.getContent());
 
-        if (data == 1) {
-            result = new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS);
-        } else {
-            result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
-
-        }
-
-        return result;
+        return data == 1;
     }
 
     @Override
-    public ResponseObject editBoard(BoardEntity board) {
-
-        BoardResponseObject result;
+    public boolean editBoard(BoardEntity board) {
 
         int data = boardRepository.updateBoard(board.getBid(), board.getUid(), board.getTitle(), board.getContent(), LocalDateTime.now());
 
-        if (data == 1) {
-            result = new BoardResponseObject(BoardResponseObject.EDIT_SUCCESS);
-        } else {
-            result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
-
-        }
-
-        return result;
+        return data == 1;
     }
 
     @Override
-    public ResponseObject deleteBoard(BoardEntity board) {
-
-        BoardResponseObject result;
+    public boolean deleteBoard(BoardEntity board) {
 
         int data = boardRepository.dedeleteByBidAndUid(board.getBid(), board.getUid());
 
-        if (data == 1) {
-            result = new BoardResponseObject(BoardResponseObject.DELETE_SUCCESS);
-        } else {
-            result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
-        }
-
-        return result;
+        return data == 1;
     }
 }

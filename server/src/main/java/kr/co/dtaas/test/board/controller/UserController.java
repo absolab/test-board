@@ -20,38 +20,46 @@ public class UserController {
     @PostMapping("/user/login")
     public ResponseObject login(HttpServletRequest req, UserEntity user) {
 
-        ResponseObject result;
+        ResponseObject response;
 
-        result = userService.login(user);
+        UserEntity data = userService.login(user);
 
-        if (result.getResult() == ResponseObject.SUCCESS) {
-            req.getSession().setAttribute("login", result.getData());
+        if (data == null) {
+            response = new LoginResponseObject(LoginResponseObject.INVALID_PASSWORD);
+        } else {
+            response = new LoginResponseObject(LoginResponseObject.LOGIN_SUCCESS, data);
+            req.getSession().setAttribute("login", data);
         }
 
-        return result;
+        return response;
     }
 
     @GetMapping("/user/login")
     public ResponseObject isLogined(HttpServletRequest req) {
 
-        ResponseObject result;
+        ResponseObject response;
 
         Object data = req.getSession().getAttribute("login");
+
         if (data != null) {
             System.out.println(data);
-            result = new LoginResponseObject(LoginResponseObject.IS_LOGGED_IN);
+            response = new LoginResponseObject(LoginResponseObject.IS_LOGGED_IN);
         } else {
-            result = new LoginResponseObject(LoginResponseObject.IS_NOT_LOGGED_IN);
+            response = new LoginResponseObject(LoginResponseObject.IS_NOT_LOGGED_IN);
         }
 
-        return result;
+        return response;
     }
 
     @PostMapping("/user/logout")
     public ResponseObject logout(HttpServletRequest req) {
 
+        ResponseObject response;
+
         req.getSession().removeAttribute("login");
 
-        return userService.logout();
+        response = new LoginResponseObject(LoginResponseObject.LOGOUT_SUCCESS);
+
+        return response;
     }
 }

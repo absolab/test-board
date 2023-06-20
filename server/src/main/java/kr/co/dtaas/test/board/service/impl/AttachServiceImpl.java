@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.dtaas.test.board.responseObject.ResponseObject;
+import kr.co.dtaas.test.board.dto.AttachEntity;
 
 public interface AttachServiceImpl {
 
-    public ResponseObject saveFiles(int bid, ArrayList<MultipartFile> multipartFiles);
+    public boolean saveFiles(int bid, ArrayList<MultipartFile> multipartFiles);
 
-    public ResponseObject listFiles(int bid);
+    public ArrayList<AttachEntity> listFiles(int bid);
 
-    public ResponseObject deleteFiles(ArrayList<Integer> aid);
+    public boolean deleteFiles(ArrayList<Integer> aid);
 }

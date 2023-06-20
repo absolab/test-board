@@ -14,8 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.dtaas.test.board.dto.AttachEntity;
 import kr.co.dtaas.test.board.repository.jpa.AttachRepository;
-import kr.co.dtaas.test.board.responseObject.AttachResponseObject;
-import kr.co.dtaas.test.board.responseObject.ResponseObject;
 import kr.co.dtaas.test.board.service.impl.AttachServiceImpl;
 
 @Service
@@ -24,9 +22,7 @@ public class AttachService implements AttachServiceImpl {
     @Autowired
     AttachRepository attachRepository;
 
-    public ResponseObject saveFiles(int bid, ArrayList<MultipartFile> multipartFiles) {
-
-        ResponseObject result;
+    public boolean saveFiles(int bid, ArrayList<MultipartFile> multipartFiles) {
 
         ArrayList<AttachEntity> files = new ArrayList<>();
         for (final MultipartFile item: multipartFiles) {
@@ -39,46 +35,28 @@ public class AttachService implements AttachServiceImpl {
             cnt += attachRepository.saveFile(bid, item.getName(), item.getPath(), item.getType(), item.getSize());
         }
 
-        if (files.size() == cnt) {
-            result = new AttachResponseObject(AttachResponseObject.UPLOAD_SUCCESS);
-        } else {
-            result = new AttachResponseObject(AttachResponseObject.UPLOAD_FAIL);
-        }
-
-        return result;
+        return files.size() == cnt;
     }
 
     @Override
-    public ResponseObject listFiles(int bid) {
-
-        AttachResponseObject result;
+    public ArrayList<AttachEntity> listFiles(int bid) {
 
         ArrayList<AttachEntity> data = attachRepository.findAllByBid(bid);
 
-        if (data == null || data.isEmpty()) {
-            result = new AttachResponseObject(AttachResponseObject.GET_LIST_FAIL);
-        } else {
-            result = new AttachResponseObject(AttachResponseObject.GET_LIST_SUCCESS, data);
-        }
-
-        return result;
+        return data;
     }
 
     @Override
-    public ResponseObject deleteFiles(ArrayList<Integer> aid) {
+    public boolean deleteFiles(ArrayList<Integer> aid) {
 
-        ResponseObject result;
+        boolean result;
 
         int cnt = 0;
         for (int item : aid) {
             cnt += attachRepository.deleteFile(item);
         }
 
-        if (cnt == aid.size()) {
-            result = new AttachResponseObject(AttachResponseObject.DELETE_SUCCESS);
-        } else {
-            result = new AttachResponseObject(AttachResponseObject.DELETE_FAIL);
-        }
+        result = cnt == aid.size();
 
         return result;
     }
