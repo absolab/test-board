@@ -37,6 +37,7 @@ CREATE TABLE tb_attach (
     path        VARCHAR(512) NOT NULL,
     type        VARCHAR(256),
     size        INT NOT NULL,
+    deleted     bit(1) DEFAULT 0 NOT NULL,
     crtn_date   datetime DEFAULT now(),
     FOREIGN KEY (bid) REFERENCES tb_board(bid) ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
@@ -44,3 +45,4 @@ CREATE TABLE tb_attach (
 # ALTER TABLE tb_user ADD UNIQUE KEY (id);
 # ALTER TABLE tb_user ADD UNIQUE KEY (name);
 # ALTER TABLE tb_attach ADD size INT NOT NULL;
+# ALTER TABLE tb_attach ADD deleted BIT(1) DEFAULT 0 NOT NULL;
