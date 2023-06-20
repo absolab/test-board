@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
+import kr.co.dtaas.test.board.dto.AttachEntity;
+import kr.co.dtaas.test.board.dto.BoardDto;
 import kr.co.dtaas.test.board.dto.BoardEntity;
 import kr.co.dtaas.test.board.dto.BoardVO;
 import kr.co.dtaas.test.board.dto.UserEntity;
@@ -59,13 +61,15 @@ public class BoardController {
 
         ResponseObject response;
         BoardVO data = boardService.detailBoard(bid);
+        ArrayList<AttachEntity> fileData = attachService.listFiles(bid);
+
+        BoardDto totalData = new BoardDto(data, fileData);
 
         if (data == null) {
             response = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
         } else {
-            response = new BoardResponseObject(BoardResponseObject.ONE_SUCCESS, data);
+            response = new BoardResponseObject(BoardResponseObject.ONE_SUCCESS, totalData);
         }
-        // ResponseObject fileResult = attachService.listFiles(bid);
 
         return response;
     }

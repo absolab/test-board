@@ -22,7 +22,7 @@ const Edit = () => {
 
                 const res: BoardDetailResponseInterface = await apis.getDetail(numberBid);
                 if (res.result === ResponseResultValue.SUCCESS) {
-                    setData(res.data);
+                    setData(res.data.board);
                     console.log(res.data);
                 } else {
                     // 잘못된 bid입니다!

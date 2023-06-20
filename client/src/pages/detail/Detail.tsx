@@ -28,7 +28,7 @@ const Detail = () => {
 
                 const res: BoardDetailResponseInterface = await apis.getDetail(numberBid);
                 if (res && res.result === ResponseResultValue.SUCCESS) {
-                    setData(res.data);
+                    setData(res.data.board);
                 } else {
                     alert('잠시 후 다시 시도하세요')
                     navigate(-1);

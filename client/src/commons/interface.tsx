@@ -12,6 +12,13 @@ export interface BoardInterface {
     mdfdDate?: string,
 }
 
+export interface FileInterface {
+    aid?: number,
+    bid?: number,
+    name?: string,
+    size?: number,
+}
+
 export interface ResponseInterface {
     result: string,
     msg: string,
@@ -31,7 +38,7 @@ export interface BoardListResponseInterface extends ResponseInterface {
 }
 
 export interface BoardDetailResponseInterface extends ResponseInterface {
-    data: BoardInterface
+    data: {board: BoardInterface, files: Array<FileInterface>}
 }
 
 export interface PageCountResponseInterface extends ResponseInterface {
