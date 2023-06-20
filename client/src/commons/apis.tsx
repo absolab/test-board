@@ -88,6 +88,18 @@ const apis = {
             const res = await axios.post(config().url + ':' + config().port + '/board/edit', data, config().config);
             return res.data;
         } catch (_) { console.log(_) }
+    },
+
+    // 글 삭제
+    postDeleteWrite: async (bid:number) => {
+
+        const data = new FormData();
+        data.append('bid', bid.toString());
+
+        try {
+            const res = await axios.post(config().url + ':' + config().port + '/board/delete', data, config().config);
+            return res.data;
+        } catch (_) { console.log(_); }
     }
 }
 

@@ -76,7 +76,7 @@ public class BoardService implements BoardServiceImpl {
         int data = boardRepository.insertBoard(board.getUid(), board.getTitle(), board.getContent());
 
         if (data == 1) {
-            result = new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS, data);
+            result = new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS);
         } else {
             result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
 
@@ -93,7 +93,7 @@ public class BoardService implements BoardServiceImpl {
         int data = boardRepository.updateBoard(board.getBid(), board.getUid(), board.getTitle(), board.getContent(), LocalDateTime.now());
 
         if (data == 1) {
-            result = new BoardResponseObject(BoardResponseObject.EDIT_SUCCESS, data);
+            result = new BoardResponseObject(BoardResponseObject.EDIT_SUCCESS);
         } else {
             result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
 
@@ -104,7 +104,17 @@ public class BoardService implements BoardServiceImpl {
 
     @Override
     public ResponseObject deleteBoard(BoardDto board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteBoard'");
+
+        BoardResponseObject result;
+
+        int data = boardRepository.dedeleteByBidAndUid(board.getBid(), board.getUid());
+
+        if (data == 1) {
+            result = new BoardResponseObject(BoardResponseObject.DELETE_SUCCESS);
+        } else {
+            result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
+        }
+
+        return result;
     }
 }

@@ -57,7 +57,7 @@ public class BoardController {
             result = boardService.writeBoard(boardDto);
 
         } else {
-            result = new LoginResponseObject(LoginResponseObject.NOT_LOGGED_IN, null);
+            result = new LoginResponseObject(LoginResponseObject.NOT_LOGGED_IN);
         }
 
         return result;
@@ -72,11 +72,30 @@ public class BoardController {
         Object data = req.getSession().getAttribute("login");
 
         if (data == null) {
-            result = new LoginResponseObject(LoginResponseObject.NOT_LOGGED_IN, null);
+            result = new LoginResponseObject(LoginResponseObject.NOT_LOGGED_IN);
         } else {
             UserDto user = (UserDto) data;
             boardDto.setUid(user.getUid());
             result = boardService.editBoard(boardDto);
+        }
+
+        return result;
+    }
+
+    @Transactional
+    @PostMapping("/board/delete")
+    public ResponseObject boardDelete(HttpServletRequest req, BoardDto boardDto) {
+
+        ResponseObject result;
+
+        Object data = req.getSession().getAttribute("login");
+
+        if (data == null) {
+            result = new LoginResponseObject(LoginResponseObject.NOT_LOGGED_IN);
+        } else {
+            UserDto user = (UserDto) data;
+            boardDto.setUid(user.getUid());
+            result = boardService.deleteBoard(boardDto);
         }
 
         return result;

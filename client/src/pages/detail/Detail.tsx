@@ -48,6 +48,21 @@ const Detail = () => {
         navigate("/edit/" + data.bid);
     }
 
+    const onDeleteBtnClickEvent = async () => {
+        const confirmResult = window.confirm('삭제하시겠습니까?')
+        if (confirmResult && bid) {
+            const numberBid = Number.parseInt(bid);
+            const res = await apis.postDeleteWrite(numberBid);
+            console.log(res);
+            if (res && res.result === ResponseResultValue.SUCCESS) {
+                alert('삭제되었습니다');
+                navigate('/');
+            }
+        } else {
+            alert('잠시 후 다시 시도하세요');
+        }
+    }
+
     const onReturnBtnClickEvent = () => {
         navigate(-1);
     }
@@ -60,6 +75,7 @@ const Detail = () => {
                 <Board data={data} setData={setData} readOnly={true}></Board>
                 <div className="flex mx-auto">
                     {(name  === data.name)&& <button className="mx-1 bg-gray-200 py-1 px-3 my-2 rounded hover:bg-gray-300" onClick={onEditBtnClickEvent}>수정</button> }
+                    {(name  === data.name)&& <button className="mx-1 bg-red-400 py-1 px-3 my-2 rounded hover:bg-red-500" onClick={onDeleteBtnClickEvent}>삭제</button> }
                     <button className="mx-1 bg-gray-200 py-1 px-3 my-2 rounded hover:bg-gray-300" onClick={onReturnBtnClickEvent}>돌아가기</button>
                 </div>
             </div>
