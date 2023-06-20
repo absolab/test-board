@@ -39,9 +39,9 @@ public class UserController {
         Object data = req.getSession().getAttribute("login");
         if (data != null) {
             System.out.println(data);
-            result = new LoginResponseObject(LoginResponseObject.IS_LOGGED_IN, null);
+            result = new LoginResponseObject(LoginResponseObject.IS_LOGGED_IN);
         } else {
-            result = new LoginResponseObject(LoginResponseObject.IS_NOT_LOGGED_IN, null);
+            result = new LoginResponseObject(LoginResponseObject.IS_NOT_LOGGED_IN);
         }
 
         return result;
