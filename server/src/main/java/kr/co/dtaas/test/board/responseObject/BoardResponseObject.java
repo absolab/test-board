@@ -18,8 +18,6 @@ public class BoardResponseObject extends ResponseObject {
     public static final int IS_NOT_LOGGEN_IN = 2101;
     public static final int SEARCH_FAIL      = 2102;    // 검색 값 없음
 
-    private static String getResult(int code) { return code < 2000 ?  SUCCESS : FAIL; }
-
     public BoardResponseObject(int code, BoardUserVO board) {
         super(getResult(code), code, board);
         validateRequiredFields(code, board);

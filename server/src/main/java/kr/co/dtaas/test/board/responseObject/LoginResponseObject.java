@@ -15,8 +15,6 @@ public class LoginResponseObject extends ResponseObject {
     public static final int NOT_LOGGED_IN      = 2003;  // logout
     public static final int IS_NOT_LOGGED_IN   = 2004;  // check login
 
-    private static String getResult(int code) { return code < 2000 ?  SUCCESS : FAIL; }
-
     public LoginResponseObject(int code, UserDto user) {
         super(getResult(code), code, user);
         validateRequiredFields(code, user);

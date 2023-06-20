@@ -17,4 +17,6 @@ public abstract class ResponseObject {
     private final String result;
     private final int msg;
     private final Object data;
+
+    protected static String getResult(int code) { return code < 2000 ?  SUCCESS : FAIL; }
 }
