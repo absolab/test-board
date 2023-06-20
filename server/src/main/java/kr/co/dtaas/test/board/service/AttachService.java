@@ -24,11 +24,16 @@ public class AttachService implements AttachServiceImpl {
     @Autowired
     AttachRepository attachRepository;
 
-    // DB에 파일 정보 저장
-    @Override
-    public ResponseObject saveFilesInfo(int bid, ArrayList<AttachDto> files) {
+    public ResponseObject saveFiles(int bid, ArrayList<MultipartFile> multipartFiles) {
 
         ResponseObject result;
+
+        ArrayList<AttachDto> files = new ArrayList<>();
+        for (final MultipartFile item: multipartFiles) {
+            if (item.isEmpty()) { continue; }
+            files.add(saveFile(item));
+        }
+
         int cnt = 0;
         for (final AttachDto item: files) {
             cnt += attachRepository.saveFile(bid, item.getName(), item.getPath(), item.getType(), item.getSize());
@@ -43,18 +48,43 @@ public class AttachService implements AttachServiceImpl {
         return result;
     }
 
-    // 폴더에 파일 저장
-    public ArrayList<AttachDto> saveFiles(ArrayList<MultipartFile> multipartFiles) {
+    @Override
+    public ResponseObject listFiles(int bid) {
 
-        ArrayList<AttachDto> files = new ArrayList<>();
-        for (final MultipartFile item: multipartFiles) {
-            if (item.isEmpty()) { continue; }
-            files.add(saveFile(item));
+        AttachResponseObject result;
+
+        ArrayList<AttachDto> data = attachRepository.findAllByBid(bid);
+
+        if (data == null || data.isEmpty()) {
+            result = new AttachResponseObject(AttachResponseObject.GET_LIST_FAIL);
+        } else {
+            result = new AttachResponseObject(AttachResponseObject.GET_LIST_SUCCESS, data);
         }
 
-        return files;
+        return result;
     }
 
+    @Override
+    public ResponseObject deleteFiles(ArrayList<Integer> aid) {
+
+        ResponseObject result;
+
+        int cnt = 0;
+        for (int item : aid) {
+            cnt += attachRepository.deleteFile(item);
+        }
+
+        if (cnt == aid.size()) {
+            result = new AttachResponseObject(AttachResponseObject.DELETE_SUCCESS);
+        } else {
+            result = new AttachResponseObject(AttachResponseObject.DELETE_FAIL);
+        }
+
+        return result;
+    }
+
+    // Utils
+    // 실제 저장
     private AttachDto saveFile(MultipartFile file) {
 
         String name = file.getOriginalFilename();
@@ -85,25 +115,4 @@ public class AttachService implements AttachServiceImpl {
         return hashName + "." + extension;
     }
 
-    @Override
-    public ResponseObject listFiles(int bid) {
-
-        AttachResponseObject result;
-
-        ArrayList<AttachDto> data = attachRepository.findAllByBid(bid);
-
-        if (data == null || data.isEmpty()) {
-            result = new AttachResponseObject(AttachResponseObject.GET_LIST_FAIL);
-        } else {
-            result = new AttachResponseObject(AttachResponseObject.GET_LIST_SUCCESS, data);
-        }
-
-        return result;
-    }
-
-    @Override
-    public ResponseObject deleteFiles(int bid, int aid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteFiles'");
-    }
 }

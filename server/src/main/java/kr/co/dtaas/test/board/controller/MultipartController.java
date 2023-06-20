@@ -24,13 +24,11 @@ public class MultipartController {
 
     // 테스트를 위한 공간
     @PutMapping("/upload/file")
-    public ResponseObject uploadFile(HttpServletRequest req, ArrayList<MultipartFile> files, int bid) {
+    public ResponseObject uploadFile(HttpServletRequest req, int bid, ArrayList<MultipartFile> files) {
 
         ResponseObject result;
 
-        ArrayList<AttachDto> data = attachService.saveFiles(files);
-
-        result = attachService.saveFilesInfo(bid, data);
+        result = attachService.saveFiles(bid, files);
 
         return result;
     }
