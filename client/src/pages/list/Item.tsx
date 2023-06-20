@@ -17,7 +17,7 @@ const Item: React.FC<{item:BoardInterface, isHeader:boolean}> = ({item, isHeader
         const hours = dateObj.getHours().toString().padStart(2, '0');
         const minutes = dateObj.getMinutes().toString().padStart(2, '0');
 
-        const timeDiff = dateObj.getTime() - today.getTime();
+        const timeDiff = today.getTime() - dateObj.getTime();
         const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
         if (daysDiff > 1) {
@@ -51,16 +51,16 @@ const Item: React.FC<{item:BoardInterface, isHeader:boolean}> = ({item, isHeader
     } else {
         return (
             <div className="flex border-gray-300 border-b-[1px] h-8 items-center cursor-pointer" onClick={onItemClickEvent}>
-                <div className="w-24 text-center mx-1">
+                <div className="w-24 text-center mx-1 text-sm">
                     {item.bid}
                 </div>
                 <div className="w-[512px] mx-1">
                     {item.title}
                 </div>
-                <div className="w-24 text-center mx-1">
+                <div className="w-24 text-center mx-1 text-sm">
                     {item.name}
                 </div>
-                <div className="w-24 text-center mx-1">
+                <div className="w-24 text-center mx-1 text-sm">
                     {dateStringBeauty(item.crtnDate)}
                 </div>
             </div>
