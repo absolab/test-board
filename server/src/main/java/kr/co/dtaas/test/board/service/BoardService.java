@@ -52,26 +52,27 @@ public class BoardService implements BoardServiceImpl {
     }
 
     @Override
-    public boolean writeBoard(BoardEntity board) {
+    public int writeBoard(BoardEntity board) {
 
-        int data = boardRepository.insertBoard(board.getUid(), board.getTitle(), board.getContent());
+        boardRepository.insertBoard(board.getUid(), board.getTitle(), board.getContent());
+        int data = boardRepository.getLastInsertedId();
 
-        return data == 1;
+        return data;
     }
 
     @Override
     public boolean editBoard(BoardEntity board) {
 
         int data = boardRepository.updateBoard(board.getBid(), board.getUid(), board.getTitle(), board.getContent(), LocalDateTime.now());
-
-        return data == 1;
+       
+        return data > 0;
     }
 
     @Override
     public boolean deleteBoard(BoardEntity board) {
 
         int data = boardRepository.dedeleteByBidAndUid(board.getBid(), board.getUid());
-
-        return data == 1;
+        
+        return data > 0;
     }
 }

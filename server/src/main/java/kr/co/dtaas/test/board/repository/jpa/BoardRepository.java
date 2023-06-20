@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.dtaas.test.board.dto.BoardEntity;
 
@@ -21,8 +22,13 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
     // 글 작성
     @Modifying
+    @Transactional
     @Query("insert into BoardEntity(uid, title, content) VALUES (:uid, :title, :content)")
     int insertBoard(@Param("uid") int uid, @Param("title") String title, @Param("content") String content);
+
+    // 마지막 ID
+    @Query(value = "SELECT LAST_INSERT_ID()", nativeQuery = true)
+    int getLastInsertedId();
 
     // 직접 접근했을 때 deleted값이 1인 애들은 수정을 못하게 해야하지 않으려나 AND deleted = 0
     @Modifying

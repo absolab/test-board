@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
@@ -76,7 +77,7 @@ public class BoardController {
 
     @Transactional
     @PostMapping("/board/write")
-    public ResponseObject boardWrite(HttpServletRequest req, BoardEntity board) {
+    public ResponseObject boardWrite(HttpServletRequest req, BoardEntity board, ArrayList<MultipartFile> files) {
 
         ResponseObject response;
 
@@ -86,9 +87,10 @@ public class BoardController {
             UserEntity user = (UserEntity) userObject;
             board.setUid(user.getUid());
 
-            boolean data = boardService.writeBoard(board);
+            int data = boardService.writeBoard(board);
 
-            if (data) {
+            if (data > 0) {
+                if (!(files == null || files.isEmpty())) { attachService.saveFiles(data, files); }
                 response = new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS);
             } else {
                 response = new BoardResponseObject(BoardResponseObject.IS_NOT_LOGGEN_IN);
@@ -102,7 +104,7 @@ public class BoardController {
 
     @Transactional
     @PostMapping("/board/edit")
-    public ResponseObject boardEdit(HttpServletRequest req, BoardEntity board) {
+    public ResponseObject boardEdit(HttpServletRequest req, BoardEntity board, ArrayList<MultipartFile> files, ArrayList<Integer> deleted) {
 
         ResponseObject response;
 
@@ -116,6 +118,8 @@ public class BoardController {
             boolean data = boardService.editBoard(board);
 
             if (data) {
+                if (!(files == null || files.isEmpty())) { attachService.saveFiles(board.getBid(), files); }
+                if (!(deleted == null || deleted.isEmpty())) { attachService.deleteFiles(deleted); }
                 response = new BoardResponseObject(BoardResponseObject.EDIT_SUCCESS);
             } else {
                 response = new BoardResponseObject(BoardResponseObject.IS_NOT_LOGGEN_IN);

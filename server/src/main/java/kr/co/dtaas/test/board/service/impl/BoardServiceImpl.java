@@ -13,7 +13,7 @@ public interface BoardServiceImpl {
 
     public int totalPageCount();
 
-    public boolean writeBoard(BoardEntity board);
+    public int writeBoard(BoardEntity board);
 
     public boolean editBoard(BoardEntity board);
 
