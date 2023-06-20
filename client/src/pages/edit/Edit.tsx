@@ -12,7 +12,7 @@ const Edit = () => {
 
     const [isLogined, setIsLogined] = useState(false);
     const [data, setData] = useState<BoardInterface>({title: '', content: ''});
-    const [deleted] = useState<Array<number>>([]);
+    const [deleted, setDeleted] = useState<Array<number>>([]);
     const [files, setFiles] = useState<Array<File>>([]);
     const [existFiles, setExistFiles] = useState<Array<FileInterface>>([]);
 
@@ -77,16 +77,9 @@ const Edit = () => {
     })
 
     const onExistFileClickEvent = (aid: number|undefined) => {
-        if (aid) {
-            deleted.push(aid);
-        }
 
-        for (const idx in existFiles) {
-            const item = existFiles[idx];
-            if (item.aid === aid) {
-                existFiles.splice(Number.parseInt(idx), 1);
-            }
-        }
+        if (aid) { setDeleted([ ...deleted, aid]); }
+        setExistFiles(existFiles.filter((item) => item.aid !== aid));
     }
 
     const onFileInputChangeEvent = (e: ChangeEvent<HTMLInputElement>) => {
