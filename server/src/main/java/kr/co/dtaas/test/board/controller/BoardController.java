@@ -45,7 +45,7 @@ public class BoardController {
 
     @Transactional
     @PostMapping("/board/write")
-    public ResponseObject boardWrite(HttpServletRequest req, BoardEntity boardDto) {
+    public ResponseObject boardWrite(HttpServletRequest req, BoardEntity board) {
 
         ResponseObject result;
 
@@ -53,8 +53,8 @@ public class BoardController {
         if (data != null) {
 
             UserEntity user = (UserEntity) data;
-            boardDto.setUid(user.getUid());
-            result = boardService.writeBoard(boardDto);
+            board.setUid(user.getUid());
+            result = boardService.writeBoard(board);
 
         } else {
             result = new LoginResponseObject(LoginResponseObject.NOT_LOGGED_IN);
@@ -65,7 +65,7 @@ public class BoardController {
 
     @Transactional
     @PostMapping("/board/edit")
-    public ResponseObject boardEdit(HttpServletRequest req, BoardEntity boardDto) {
+    public ResponseObject boardEdit(HttpServletRequest req, BoardEntity board) {
 
         ResponseObject result;
 
@@ -75,8 +75,8 @@ public class BoardController {
             result = new LoginResponseObject(LoginResponseObject.NOT_LOGGED_IN);
         } else {
             UserEntity user = (UserEntity) data;
-            boardDto.setUid(user.getUid());
-            result = boardService.editBoard(boardDto);
+            board.setUid(user.getUid());
+            result = boardService.editBoard(board);
         }
 
         return result;
@@ -84,7 +84,7 @@ public class BoardController {
 
     @Transactional
     @PostMapping("/board/delete")
-    public ResponseObject boardDelete(HttpServletRequest req, BoardEntity boardDto) {
+    public ResponseObject boardDelete(HttpServletRequest req, BoardEntity board) {
 
         ResponseObject result;
 
@@ -94,8 +94,8 @@ public class BoardController {
             result = new LoginResponseObject(LoginResponseObject.NOT_LOGGED_IN);
         } else {
             UserEntity user = (UserEntity) data;
-            boardDto.setUid(user.getUid());
-            result = boardService.deleteBoard(boardDto);
+            board.setUid(user.getUid());
+            result = boardService.deleteBoard(board);
         }
 
         return result;
