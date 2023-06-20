@@ -9,10 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import kr.co.dtaas.test.board.dto.BoardDto;
-import kr.co.dtaas.test.board.dto.BoardUserVO;
+import kr.co.dtaas.test.board.dto.BoardEntity;
+import kr.co.dtaas.test.board.dto.BoardVO;
 import kr.co.dtaas.test.board.repository.jpa.BoardRepository;
-import kr.co.dtaas.test.board.repository.jpa.BoardUserRepository;
+import kr.co.dtaas.test.board.repository.jpa.BoardWithUserRepository;
 import kr.co.dtaas.test.board.responseObject.BoardResponseObject;
 import kr.co.dtaas.test.board.responseObject.ResponseObject;
 import kr.co.dtaas.test.board.service.impl.BoardServiceImpl;
@@ -26,7 +26,7 @@ public class BoardService implements BoardServiceImpl {
     BoardRepository boardRepository;
 
     @Autowired
-    BoardUserRepository boardUserRepository;
+    BoardWithUserRepository boardUserRepository;
 
     @Override
     public ResponseObject boardList(int pageNumber) {
@@ -34,7 +34,7 @@ public class BoardService implements BoardServiceImpl {
 
         Pageable pageable = PageRequest.of(pageNumber, PAGE_SIZE, Sort.by("bid").descending());
 
-        ArrayList<BoardUserVO> data = boardUserRepository.findAllBoardWithUserName(pageable);
+        ArrayList<BoardVO> data = boardUserRepository.findAllBoardWithUserName(pageable);
 
         if (data != null) {
             result = new BoardResponseObject(BoardResponseObject.LIST_SUCCESS, data);
@@ -50,7 +50,7 @@ public class BoardService implements BoardServiceImpl {
 
         BoardResponseObject result;
 
-        BoardUserVO data = boardUserRepository.findOneBoardWithUserNameByBid(bid);
+        BoardVO data = boardUserRepository.findOneBoardWithUserNameByBid(bid);
 
         if (data == null) {
             result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
@@ -69,7 +69,7 @@ public class BoardService implements BoardServiceImpl {
     }
 
     @Override
-    public ResponseObject writeBoard(BoardDto board) {
+    public ResponseObject writeBoard(BoardEntity board) {
 
         BoardResponseObject result;
 
@@ -86,7 +86,7 @@ public class BoardService implements BoardServiceImpl {
     }
 
     @Override
-    public ResponseObject editBoard(BoardDto board) {
+    public ResponseObject editBoard(BoardEntity board) {
 
         BoardResponseObject result;
 
@@ -103,7 +103,7 @@ public class BoardService implements BoardServiceImpl {
     }
 
     @Override
-    public ResponseObject deleteBoard(BoardDto board) {
+    public ResponseObject deleteBoard(BoardEntity board) {
 
         BoardResponseObject result;
 

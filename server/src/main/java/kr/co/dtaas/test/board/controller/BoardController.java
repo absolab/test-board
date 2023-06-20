@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
-import kr.co.dtaas.test.board.dto.BoardDto;
-import kr.co.dtaas.test.board.dto.UserDto;
+import kr.co.dtaas.test.board.dto.BoardEntity;
+import kr.co.dtaas.test.board.dto.UserEntity;
 import kr.co.dtaas.test.board.responseObject.LoginResponseObject;
 import kr.co.dtaas.test.board.responseObject.ResponseObject;
 import kr.co.dtaas.test.board.service.BoardService;
@@ -45,14 +45,14 @@ public class BoardController {
 
     @Transactional
     @PostMapping("/board/write")
-    public ResponseObject boardWrite(HttpServletRequest req, BoardDto boardDto) {
+    public ResponseObject boardWrite(HttpServletRequest req, BoardEntity boardDto) {
 
         ResponseObject result;
 
         Object data = req.getSession().getAttribute("login");
         if (data != null) {
 
-            UserDto user = (UserDto) data;
+            UserEntity user = (UserEntity) data;
             boardDto.setUid(user.getUid());
             result = boardService.writeBoard(boardDto);
 
@@ -65,7 +65,7 @@ public class BoardController {
 
     @Transactional
     @PostMapping("/board/edit")
-    public ResponseObject boardEdit(HttpServletRequest req, BoardDto boardDto) {
+    public ResponseObject boardEdit(HttpServletRequest req, BoardEntity boardDto) {
 
         ResponseObject result;
 
@@ -74,7 +74,7 @@ public class BoardController {
         if (data == null) {
             result = new LoginResponseObject(LoginResponseObject.NOT_LOGGED_IN);
         } else {
-            UserDto user = (UserDto) data;
+            UserEntity user = (UserEntity) data;
             boardDto.setUid(user.getUid());
             result = boardService.editBoard(boardDto);
         }
@@ -84,7 +84,7 @@ public class BoardController {
 
     @Transactional
     @PostMapping("/board/delete")
-    public ResponseObject boardDelete(HttpServletRequest req, BoardDto boardDto) {
+    public ResponseObject boardDelete(HttpServletRequest req, BoardEntity boardDto) {
 
         ResponseObject result;
 
@@ -93,7 +93,7 @@ public class BoardController {
         if (data == null) {
             result = new LoginResponseObject(LoginResponseObject.NOT_LOGGED_IN);
         } else {
-            UserDto user = (UserDto) data;
+            UserEntity user = (UserEntity) data;
             boardDto.setUid(user.getUid());
             result = boardService.deleteBoard(boardDto);
         }

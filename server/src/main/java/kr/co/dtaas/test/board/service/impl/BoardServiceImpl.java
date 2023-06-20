@@ -1,6 +1,6 @@
 package kr.co.dtaas.test.board.service.impl;
 
-import kr.co.dtaas.test.board.dto.BoardDto;
+import kr.co.dtaas.test.board.dto.BoardEntity;
 import kr.co.dtaas.test.board.responseObject.ResponseObject;
 
 public interface BoardServiceImpl {
@@ -11,9 +11,9 @@ public interface BoardServiceImpl {
 
     public ResponseObject totalPageCount();
 
-    public ResponseObject writeBoard(BoardDto board);
+    public ResponseObject writeBoard(BoardEntity board);
 
-    public ResponseObject editBoard(BoardDto board);
+    public ResponseObject editBoard(BoardEntity board);
 
-    public ResponseObject deleteBoard(BoardDto board);
+    public ResponseObject deleteBoard(BoardEntity board);
 }

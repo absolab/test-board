@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
-import kr.co.dtaas.test.board.dto.AttachDto;
+import kr.co.dtaas.test.board.dto.AttachEntity;
 import kr.co.dtaas.test.board.responseObject.ResponseObject;
 import kr.co.dtaas.test.board.service.AttachService;
 
 @Transactional
 @RestController
-public class MultipartController {
+public class AttachController {
 
     @Autowired
     AttachService attachService;
 
-    // 테스트를 위한 공간
+    // DEV
     @PutMapping("/upload/file")
     public ResponseObject uploadFile(HttpServletRequest req, int bid, ArrayList<MultipartFile> files) {
 
@@ -33,6 +33,7 @@ public class MultipartController {
         return result;
     }
 
+    // DEV
     @GetMapping("/upload/list/{bid}")
     public ResponseObject listFile(@PathVariable("bid") int bid) {
 

@@ -2,7 +2,7 @@ package kr.co.dtaas.test.board.responseObject;
 
 import java.util.ArrayList;
 
-import kr.co.dtaas.test.board.dto.BoardUserVO;
+import kr.co.dtaas.test.board.dto.BoardVO;
 
 public class BoardResponseObject extends ResponseObject {
 
@@ -18,12 +18,12 @@ public class BoardResponseObject extends ResponseObject {
     public static final int IS_NOT_LOGGEN_IN = 2101;
     public static final int SEARCH_FAIL      = 2102;    // 검색 값 없음
 
-    public BoardResponseObject(int code, BoardUserVO board) {
+    public BoardResponseObject(int code, BoardVO board) {
         super(getResult(code), code, board);
         validateRequiredFields(code, board);
     }
 
-    public BoardResponseObject(int code, ArrayList<BoardUserVO> list) {
+    public BoardResponseObject(int code, ArrayList<BoardVO> list) {
         super(getResult(code), code, list);
         validateRequiredFields(code, list);
     }
@@ -38,12 +38,12 @@ public class BoardResponseObject extends ResponseObject {
     }
 
     // 데이터가 있어야 하는 경우
-    private void validateRequiredFields(int code, ArrayList<BoardUserVO> list) {
+    private void validateRequiredFields(int code, ArrayList<BoardVO> list) {
         if (code == LIST_SUCCESS && list == null) {
             throw new IllegalArgumentException("게시글 데이터가 필요 합니다");
         }
     }
-    private void validateRequiredFields(int code, BoardUserVO board) {
+    private void validateRequiredFields(int code, BoardVO board) {
         if (code == LIST_SUCCESS && board == null) {
             throw new IllegalArgumentException("게시글 데이터가 필요 합니다");
         }

@@ -1,6 +1,6 @@
 package kr.co.dtaas.test.board.responseObject;
 
-import kr.co.dtaas.test.board.dto.UserDto;
+import kr.co.dtaas.test.board.dto.UserEntity;
 
 public class LoginResponseObject extends ResponseObject {
 
@@ -15,7 +15,7 @@ public class LoginResponseObject extends ResponseObject {
     public static final int NOT_LOGGED_IN      = 2003;  // logout
     public static final int IS_NOT_LOGGED_IN   = 2004;  // check login
 
-    public LoginResponseObject(int code, UserDto user) {
+    public LoginResponseObject(int code, UserEntity user) {
         super(getResult(code), code, user);
         validateRequiredFields(code, user);
     }
@@ -26,7 +26,7 @@ public class LoginResponseObject extends ResponseObject {
     }
 
     // 데이터가 있어야 하는 경우
-    private void validateRequiredFields(int code, UserDto user) {
+    private void validateRequiredFields(int code, UserEntity user) {
         if (code == LOGIN_SUCCESS && user == null) {
             throw new IllegalArgumentException("User객체를 넣어줘야 합니다.");
         }

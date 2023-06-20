@@ -18,7 +18,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @Table(name="TB_ATTACH")
-public class AttachDto {
+public class AttachEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

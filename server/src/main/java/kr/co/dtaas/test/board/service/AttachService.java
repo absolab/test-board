@@ -12,7 +12,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.dtaas.test.board.dto.AttachDto;
+import kr.co.dtaas.test.board.dto.AttachEntity;
 import kr.co.dtaas.test.board.repository.jpa.AttachRepository;
 import kr.co.dtaas.test.board.responseObject.AttachResponseObject;
 import kr.co.dtaas.test.board.responseObject.ResponseObject;
@@ -28,14 +28,14 @@ public class AttachService implements AttachServiceImpl {
 
         ResponseObject result;
 
-        ArrayList<AttachDto> files = new ArrayList<>();
+        ArrayList<AttachEntity> files = new ArrayList<>();
         for (final MultipartFile item: multipartFiles) {
             if (item.isEmpty()) { continue; }
             files.add(saveFile(item));
         }
 
         int cnt = 0;
-        for (final AttachDto item: files) {
+        for (final AttachEntity item: files) {
             cnt += attachRepository.saveFile(bid, item.getName(), item.getPath(), item.getType(), item.getSize());
         }
 
@@ -53,7 +53,7 @@ public class AttachService implements AttachServiceImpl {
 
         AttachResponseObject result;
 
-        ArrayList<AttachDto> data = attachRepository.findAllByBid(bid);
+        ArrayList<AttachEntity> data = attachRepository.findAllByBid(bid);
 
         if (data == null || data.isEmpty()) {
             result = new AttachResponseObject(AttachResponseObject.GET_LIST_FAIL);
@@ -85,7 +85,7 @@ public class AttachService implements AttachServiceImpl {
 
     // Utils
     // 실제 저장
-    private AttachDto saveFile(MultipartFile file) {
+    private AttachEntity saveFile(MultipartFile file) {
 
         String name = file.getOriginalFilename();
         String path = generateHashName(name);   // String path = 새로운 이름 + 확장자
@@ -98,7 +98,7 @@ public class AttachService implements AttachServiceImpl {
             throw new RuntimeException(e);
         }
 
-        AttachDto result = new AttachDto();
+        AttachEntity result = new AttachEntity();
         result.setName(name);
         result.setPath(uploadPath);
         result.setSize((int) file.getSize());       // 문제 소지 有

@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 @Entity
 @AllArgsConstructor
-public class BoardUserVO {
+public class BoardVO {
     @Id
     private int bid;
     private String title;
@@ -20,7 +20,7 @@ public class BoardUserVO {
     private String name;
 
     // content가 빠진 생성자 (list용)
-    public BoardUserVO(int bid, String title, LocalDateTime crtnDate, LocalDateTime mdfdDate, String name) {
+    public BoardVO(int bid, String title, LocalDateTime crtnDate, LocalDateTime mdfdDate, String name) {
         this.bid = bid;
         this.title = title;
         this.crtnDate = crtnDate;
