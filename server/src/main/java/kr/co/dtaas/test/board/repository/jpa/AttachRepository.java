@@ -22,7 +22,7 @@ public interface AttachRepository extends JpaRepository<AttachEntity, Long> {
     int deleteFile(@Param("aid")int aid);
 
     // 파일 목록
-    ArrayList<AttachEntity> findAllByBid(int bid);
+    ArrayList<AttachEntity> findAllByBidAndDeleted(int bid, int deleted);
 
     // 파일 정보
     AttachEntity findOneByAid(int aid);

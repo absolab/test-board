@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -104,7 +105,7 @@ public class BoardController {
 
     @Transactional
     @PostMapping("/board/edit")
-    public ResponseObject boardEdit(HttpServletRequest req, BoardEntity board, ArrayList<MultipartFile> files, ArrayList<Integer> deleted) {
+    public ResponseObject boardEdit(HttpServletRequest req, BoardEntity board, ArrayList<MultipartFile> files, @RequestParam("deleted")ArrayList<Integer> deleted) {
 
         ResponseObject response;
 

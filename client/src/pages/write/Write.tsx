@@ -38,8 +38,8 @@ const Write = () => {
 
     const onReturnBtnClickEvent = () => { navigate(-1); }
 
-    const Files = files.map(item => {
-        return ( <div className="m-1 px-1 border-blue-300 border-2 cursor-pointer hover:border-blue-400">{item.name}</div> );
+    const Files = files.map((item, idx) => {
+        return ( <div className="m-1 px-1 border-red-300 border-2" key={idx}>{item.name}</div> );
     })
 
     const onFileInputChangeEvent = (e: ChangeEvent<HTMLInputElement>) => {

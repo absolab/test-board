@@ -69,8 +69,8 @@ const Detail = () => {
         navigate(-1);
     }
 
-    const Files = files.map(item => {
-        return ( <div className="m-1 px-1 border-blue-300 border-2 cursor-pointer hover:border-blue-400" onClick={() => {onFileClickEvent(item)}}>{item.name}</div> );
+    const Files = files.map((item, idx) => {
+        return ( <div className="m-1 px-1 border-blue-300 border-2 cursor-pointer hover:border-blue-400" key={idx} onClick={() => {onFileClickEvent(item)}}>{item.name}</div> );
     })
 
     const onFileClickEvent = async (file:FileInterface) => {

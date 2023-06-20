@@ -1,7 +1,7 @@
 import apis from "commons/apis";
-import { BoardDetailResponseInterface, BoardInterface, ResponseResultValue } from "commons/interface";
+import { BoardDetailResponseInterface, BoardInterface, FileInterface, ResponseResultValue } from "commons/interface";
 import { Board, Header } from "components";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Edit = () => {
@@ -12,6 +12,10 @@ const Edit = () => {
 
     const [isLogined, setIsLogined] = useState(false);
     const [data, setData] = useState<BoardInterface>({title: '', content: ''});
+    const [deleted] = useState<Array<number>>([]);
+    const [files, setFiles] = useState<Array<File>>([]);
+    const [existFiles, setExistFiles] = useState<Array<FileInterface>>([]);
+
 
     useEffect(() => {
         // 게시물 정보 불러오기
@@ -23,9 +27,9 @@ const Edit = () => {
                 const res: BoardDetailResponseInterface = await apis.getDetail(numberBid);
                 if (res.result === ResponseResultValue.SUCCESS) {
                     setData(res.data.board);
-                    console.log(res.data);
+                    if (res.data.files) { setExistFiles(res.data.files); }
                 } else {
-                    // 잘못된 bid입니다!
+                    alert('잠시 후 다시 시도하세요')
                 }
             }
 
@@ -53,7 +57,7 @@ const Edit = () => {
 
         const numberBid = Number.parseInt(bid!);
 
-        const res = await apis.postEditWrite(numberBid, data.title, data.content);
+        const res = await apis.postEditWrite(numberBid, data.title, data.content, files, deleted);
         if (res.result === ResponseResultValue.SUCCESS) {
             navigate("/");
         } else {
@@ -65,6 +69,38 @@ const Edit = () => {
         navigate(-1);
     }
 
+    const ExistFiles = existFiles.map((item, idx) => {
+        return ( <div className="m-1 px-1 border-blue-300 border-2 cursor-pointer hover:border-blue-400" key={idx} onClick={() => {onExistFileClickEvent(item.aid)}}>{item.name}</div> );
+    })
+    const Files = files.map(item => {
+        return ( <div className="m-1 px-1 border-red-300 border-2">{item.name}</div> );
+    })
+
+    const onExistFileClickEvent = (aid: number|undefined) => {
+        if (aid) {
+            deleted.push(aid);
+        }
+
+        for (const idx in existFiles) {
+            const item = existFiles[idx];
+            if (item.aid === aid) {
+                existFiles.splice(Number.parseInt(idx), 1);
+            }
+        }
+    }
+
+    const onFileInputChangeEvent = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const arr = Array<File>();
+            for (const idx in e.target.files) {
+                arr.push(e.target.files[idx]);
+            }
+            arr.pop();
+            arr.pop();  // 좀 더 좋은 방법을 강구
+            setFiles(arr);
+        }
+    }
+
     return (
         data ? 
         <div className="flex flex-col">
@@ -72,6 +108,14 @@ const Edit = () => {
             <div className="flex flex-col mx-auto">
                 <div className="my-24 mx-auto text-gray-600 font-bold text-4xl">게시판</div>
                 <Board data={data} setData={setData} readOnly={false}></Board>
+                <div className="m-1">
+                    <input type="file" multiple onChange={onFileInputChangeEvent}/>
+                </div>
+                <div className="flex items-center">
+                    <div className="m-1">첨부:</div>
+                    {ExistFiles}
+                    {Files}
+                </div>
                 <div className="flex mx-auto">
                     <button className="mx-1 bg-gray-200 py-1 px-3 my-2 rounded hover:bg-gray-300" onClick={onSaveBtnClickEvent}>저장</button>
                     <button className="mx-1 bg-gray-200 py-1 px-3 my-2 rounded hover:bg-gray-300" onClick={onReturnBtnClickEvent}>돌아가기</button>

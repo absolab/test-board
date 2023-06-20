@@ -41,7 +41,7 @@ public class AttachService implements AttachServiceImpl {
     @Override
     public ArrayList<AttachEntity> listFiles(int bid) {
 
-        ArrayList<AttachEntity> data = attachRepository.findAllByBid(bid);
+        ArrayList<AttachEntity> data = attachRepository.findAllByBidAndDeleted(bid, 0);
 
         return data;
     }

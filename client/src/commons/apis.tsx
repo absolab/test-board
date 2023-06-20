@@ -80,15 +80,20 @@ const apis = {
     },
 
     // 글 수정
-    postEditWrite: async (bid:number, title:string, content:string) => {
+    postEditWrite: async (bid:number, title:string, content:string, files:Array<File>, deleted:Array<number>) => {
 
         const data = new FormData();
+        console.log(bid, title, content, files, deleted);
         data.append('bid', bid.toString());
         data.append('title', title);
         data.append('content', content);
-        // for (const item in files) {
-        //     data.append('files', item);
-        // }
+        for (const idx in files) { data.append('files', files[idx]); }
+        for (const idx in deleted) {
+            console.log(idx, deleted[idx]);
+            data.append('deleted', deleted[idx].toString());
+        }
+        console.log(data.get('deleted'));
+
         try {
             const res = await axios.post(config().url + ':' + config().port + '/board/edit', data, config().config);
             return res.data;
