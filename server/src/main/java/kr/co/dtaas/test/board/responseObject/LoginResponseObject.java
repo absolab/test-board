@@ -15,44 +15,22 @@ public class LoginResponseObject extends ResponseObject {
     public static final int NOT_LOGGED_IN      = 2003;  // logout
     public static final int IS_NOT_LOGGED_IN   = 2004;  // check login
 
+    private static String getResult(int code) { return code < 2000 ?  SUCCESS : FAIL; }
+
     public LoginResponseObject(int code, UserDto user) {
+        super(getResult(code), code, user);
+        validateRequiredFields(code, user);
+    }
 
-        switch(code) {
-        case LOGIN_SUCCESS:
-            result = SUCCESS;
-            msg = LOGIN_SUCCESS;
-            data = user;
-            break;
+    public LoginResponseObject(int code) {
+        super(getResult(code), code, null);
+        validateRequiredFields(code, null);
+    }
 
-        case ALREADY_LOGGED_IN:
-            result = FAIL;
-            msg = ALREADY_LOGGED_IN;
-            break;
-
-        case INVALID_PASSWORD:
-            result = FAIL;
-            msg = INVALID_PASSWORD;
-            break;
-
-        case LOGOUT_SUCCESS:
-            result = SUCCESS;
-            msg = LOGOUT_SUCCESS;
-            break;
-
-        case NOT_LOGGED_IN:
-            result = FAIL;
-            msg = NOT_LOGGED_IN;
-            break;
-
-        case IS_LOGGED_IN:
-            result = SUCCESS;
-            msg = IS_LOGGED_IN;
-            break;
-
-        case IS_NOT_LOGGED_IN:
-            result = FAIL;
-            msg = IS_NOT_LOGGED_IN;
-            break;
+    // 데이터가 있어야 하는 경우
+    private void validateRequiredFields(int code, UserDto user) {
+        if (code == LOGIN_SUCCESS && user == null) {
+            throw new IllegalArgumentException("User객체를 넣어줘야 합니다.");
         }
     }
 }

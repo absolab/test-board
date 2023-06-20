@@ -25,7 +25,7 @@ public class UserService implements UserServiceImpl {
         if (data != null) {
             result = new LoginResponseObject(LoginResponseObject.LOGIN_SUCCESS, data);
         } else {
-            result = new LoginResponseObject(LoginResponseObject.INVALID_PASSWORD, data);   // 이 부분을 어떻게 하면 깔끔할까
+            result = new LoginResponseObject(LoginResponseObject.INVALID_PASSWORD);
         }
 
         return result;
@@ -34,7 +34,7 @@ public class UserService implements UserServiceImpl {
     @Override
     public ResponseObject logout() {
 
-        LoginResponseObject result = new LoginResponseObject(LoginResponseObject.LOGOUT_SUCCESS, null);
+        LoginResponseObject result = new LoginResponseObject(LoginResponseObject.LOGOUT_SUCCESS);
 
         return result;
     }

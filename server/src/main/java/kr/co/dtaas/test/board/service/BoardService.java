@@ -37,9 +37,9 @@ public class BoardService implements BoardServiceImpl {
         ArrayList<BoardUserVO> data = boardUserRepository.findAllBoardWithUserName(pageable);
 
         if (data != null) {
-            result = new BoardResponseObject(BoardResponseObject.GET_LIST, data);
+            result = new BoardResponseObject(BoardResponseObject.LIST_SUCCESS, data);
         } else {
-            result = new BoardResponseObject(BoardResponseObject.GET_LIST, null);
+            result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
         }
 
         return result;
@@ -53,9 +53,9 @@ public class BoardService implements BoardServiceImpl {
         BoardUserVO data = boardUserRepository.findOneBoardWithUserNameByBid(bid);
 
         if (data == null) {
-            result = null;
+            result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
         } else {
-            result = new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS, data);
+            result = new BoardResponseObject(BoardResponseObject.ONE_SUCCESS, data);
         }
 
         return result;
@@ -65,7 +65,7 @@ public class BoardService implements BoardServiceImpl {
     public ResponseObject totalPageCount() {
         int data = boardRepository.countByDeleted(0);
 
-        return new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS, data / PAGE_SIZE + 1);
+        return new BoardResponseObject(BoardResponseObject.PAGE_SUCCESS, data / PAGE_SIZE + 1);
     }
 
     @Override
@@ -78,7 +78,8 @@ public class BoardService implements BoardServiceImpl {
         if (data == 1) {
             result = new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS, data);
         } else {
-            result = null;
+            result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
+
         }
 
         return result;
@@ -92,9 +93,10 @@ public class BoardService implements BoardServiceImpl {
         int data = boardRepository.updateBoard(board.getBid(), board.getUid(), board.getTitle(), board.getContent(), LocalDateTime.now());
 
         if (data == 1) {
-            result = new BoardResponseObject(BoardResponseObject.WRITE_SUCCESS, data);
+            result = new BoardResponseObject(BoardResponseObject.EDIT_SUCCESS, data);
         } else {
-            result = null;
+            result = new BoardResponseObject(BoardResponseObject.SEARCH_FAIL);
+
         }
 
         return result;
