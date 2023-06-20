@@ -25,5 +25,7 @@ public class AttachDto {
     private String name;
     private String path;
     private String type;
+    private int size;
+    private int deleted;
     private LocalDateTime crtnDate;
 }
