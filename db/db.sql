@@ -36,9 +36,11 @@ CREATE TABLE tb_attach (
     name        VARCHAR(256) NOT NULL,
     path        VARCHAR(512) NOT NULL,
     type        VARCHAR(256),
+    size        INT NOT NULL,
     crtn_date   datetime DEFAULT now(),
     FOREIGN KEY (bid) REFERENCES tb_board(bid) ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
 
 # ALTER TABLE tb_user ADD UNIQUE KEY (id);
 # ALTER TABLE tb_user ADD UNIQUE KEY (name);
+# ALTER TABLE tb_attach ADD size INT NOT NULL;
