@@ -64,11 +64,14 @@ const apis = {
     },
 
     // 글 등록
-    postWrite: async (title:string, content:string) => {
+    postWrite: async (title:string, content:string, files:Array<File>) => {
 
         const data = new FormData();
         data.append('title', title);
         data.append('content', content);
+        for (const idx in files) {
+            data.append('files', files[idx]);
+        }
 
         try {
             const res = await axios.post(config().url + ':' + config().port + '/board/write', data, config().config);
@@ -83,7 +86,9 @@ const apis = {
         data.append('bid', bid.toString());
         data.append('title', title);
         data.append('content', content);
-
+        // for (const item in files) {
+        //     data.append('files', item);
+        // }
         try {
             const res = await axios.post(config().url + ':' + config().port + '/board/edit', data, config().config);
             return res.data;
