@@ -24,7 +24,7 @@ public interface BoardRepository extends JpaRepository<BoardDto, Long> {
     @Query("insert into BoardDto(uid, title, content) VALUES (:uid, :title, :content)")
     int insertBoard(@Param("uid") int uid, @Param("title") String title, @Param("content") String content);
 
-    // 직접 접근했을 때 deleted값이 1인 애들은 수정을 못하게 해야하지 않으려나
+    // 직접 접근했을 때 deleted값이 1인 애들은 수정을 못하게 해야하지 않으려나 AND deleted = 0
     @Modifying
     @Query("update BoardDto b set b.title=:title, b.content=:content, b.mdfdDate=:mdfdDate where b.bid=:bid and b.uid=:uid")
     int updateBoard(@Param("bid") int bid, @Param("uid") int uid, @Param("title") String title, @Param("content") String content, @Param("mdfdDate") LocalDateTime mdfdDate);
