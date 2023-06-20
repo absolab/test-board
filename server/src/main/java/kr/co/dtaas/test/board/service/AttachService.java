@@ -61,6 +61,11 @@ public class AttachService implements AttachServiceImpl {
         return result;
     }
 
+    public AttachEntity getFileInfo(int aid) {
+        AttachEntity data = attachRepository.findOneByAid(aid);
+        return data;
+    }
+
     // Utils
     // 실제 저장
     private AttachEntity saveFile(MultipartFile file) {

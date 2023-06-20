@@ -23,7 +23,7 @@ const Page:React.FC<{currentPageNum:number, setCurrentPageNum:(pageNum:number)=>
 
     const PageButton:React.FC<{num:number}> = ({num}) => {
         return (
-            <div className={"text-sm m-1 cursor-pointer" + (num===currentPageNum+1?" font-bold":"")} onClick={() => onClickPageButton(num - 1)}>
+            <div className={"text-sm m-1 cursor-pointer" + (num === currentPageNum + 1?" font-bold":"")} onClick={() => onClickPageButton(num - 1)}>
                 {num}
             </div>
         )

@@ -17,6 +17,7 @@ export interface FileInterface {
     bid?: number,
     name?: string,
     size?: number,
+    type?: string,
 }
 
 export interface ResponseInterface {

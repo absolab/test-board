@@ -23,4 +23,7 @@ public interface AttachRepository extends JpaRepository<AttachEntity, Long> {
 
     // 파일 목록
     ArrayList<AttachEntity> findAllByBid(int bid);
+
+    // 파일 정보
+    AttachEntity findOneByAid(int aid);
 }

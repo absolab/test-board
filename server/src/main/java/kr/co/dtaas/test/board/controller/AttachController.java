@@ -1,8 +1,21 @@
 package kr.co.dtaas.test.board.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,4 +69,12 @@ public class AttachController {
 
         return response;
     }
+
+    @GetMapping("/upload/download/{aid}")
+    public Resource downloadFile(@PathVariable("aid") int aid) {
+
+        AttachEntity fileInfo = attachService.getFileInfo(aid);
+        Resource resource = new FileSystemResource(fileInfo.getPath());
+        return resource;
+    } 
 }

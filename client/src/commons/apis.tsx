@@ -100,6 +100,15 @@ const apis = {
             const res = await axios.post(config().url + ':' + config().port + '/board/delete', data, config().config);
             return res.data;
         } catch (_) { console.log(_); }
+    },
+
+    // 파일 다운로드
+    getDownloadFile: async (aid:number) => {
+        try {
+            const res = await axios.get(config().url + ':' + config().port + '/upload/download/' + aid, {responseType:'blob'});
+            console.log(res);
+            return res.data;
+        } catch (_) { console.log(_) }
     }
 }
 
