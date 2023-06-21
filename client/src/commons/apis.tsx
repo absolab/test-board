@@ -3,8 +3,8 @@ import axios from "axios";
 const config = () => {
 
     return {
-        url: 'http://localhost',
-        port: 8080,
+        url: 'http://192.168.6.31',
+        port: 3000,
         config: { withCredentials: true }
     }
 }

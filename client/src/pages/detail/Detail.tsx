@@ -102,7 +102,7 @@ const Detail = () => {
         <div className="flex flex-col">
             <Header isLogined={isLogined} setIsLogined={setIsLogined}></Header>
             <div className="flex flex-col mx-auto">
-                <div className="my-24 mx-auto text-gray-600 font-bold text-4xl">게시판</div>
+                <div className="my-24 mx-auto text-gray-600 font-bold text-4xl">게시글</div>
                 <Board data={data} setData={setData} readOnly={true}></Board>
                 <div className="flex items-center">
                     <div className="m-1">첨부:</div>

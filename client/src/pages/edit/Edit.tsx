@@ -99,7 +99,7 @@ const Edit = () => {
         <div className="flex flex-col">
             <Header isLogined={isLogined} setIsLogined={setIsLogined}></Header>
             <div className="flex flex-col mx-auto">
-                <div className="my-24 mx-auto text-gray-600 font-bold text-4xl">게시판</div>
+                <div className="my-24 mx-auto text-gray-600 font-bold text-4xl">글수정</div>
                 <Board data={data} setData={setData} readOnly={false}></Board>
                 <div className="m-1">
                     <input type="file" multiple onChange={onFileInputChangeEvent}/>
